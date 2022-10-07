@@ -1,0 +1,9 @@
+#+title: Design Development Plan
+#+AUTHOR: Sixth Sense
+
+* Introduction
+* Statement of Work
+* Deliverable Artifacts :ATTACH:
+:PROPERTIES:
+:ID:       18104f23-396d-4840-9b7c-39fbbf80b685
+:END:

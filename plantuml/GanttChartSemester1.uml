@@ -1,0 +1,39 @@
+@startgantt
+Project starts 2022-10-07
+
+-- Firmware --
+[Connect Thermal] lasts 7 days
+[Create Capturing Sequence] starts at [Connect Thermal]'s end and lasts 2 weeks
+[Save Image w/ EXIF] starts 2022-10-20 and lasts 1 week
+[MAVLink Interface] starts at [Connect Thermal]'s end and lasts 4 weeks
+[Coral ⇔ ArduPilot communication] starts at [MAVLink Interface]'s start and lasts 3 weeks
+[Select RGB Cam] lasts 7 days
+[Connect RGB Cam] starts 2022-10-17 and lasts 7 days
+[Test Prototype] starts 2022-11-14 and lasts 3 weeks
+[Collect thermal data] starts at [Test Prototype]'s start and lasts 3 weeks
+[Webserver Setup] starts 2022-10-25 and lasts 2 weeks
+[Live Feed (S1-S2)] starts 2022-11-14 and lasts 3 weeks
+[Modifiable ML model upload (S1-S2)] starts 2022-11-14 and lasts 2 weeks
+[ML annotated image output (S1-S2)] starts 2022-11-14 and lasts 3 weeks
+-- Web Dev --
+[Web Portal Mockup] lasts 2 weeks
+[Web Portal Development] lasts 6 weeks
+-- Machine Learning --
+[Compile ML papers] lasts 3 weeks
+[Create preliminary ML model] starts 2022-11-01 and lasts 3 weeks
+then [Fine-tune ML model] lasts 2 weeks
+-- Architecture --
+[Finalize PoC Hardware] lasts 2 weeks
+[Begin Software Architecture Plan] starts 2022-10-17 and lasts 2 weeks
+[Maintainability planning] starts 2022-10-14 and lasts 9 days
+[Prototype Hardware] starts 2022-10-31 and lasts 2 weeks
+[Custom Integrated Hardware planning (S2)] starts 2022-11-14 and lasts 3 weeks
+[Production Deliverable Software planning (S2)] starts 2022-11-14 and lasts 3 weeks
+
+-- Class Milestones --
+[M2: Design Mockup] starts 2022-10-07 and ends 2022-10-17
+then [M3: Pre-Alpha Build] ends 2022-11-02
+then [M4: Design Prototype] ends 2022-11-22
+then [M5: Prototype Presentation] ends 2022-12-07
+
+@endgantt

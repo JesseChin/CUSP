@@ -1,0 +1,13 @@
+@startuml
+title "Web Configuration"
+package "MCU" {
+    [Web Server]
+    [Config Files] <-> [Web Server]
+    note bottom of [Config Files] : JSON
+    [Camera Status] -> [Web Server]
+    [GPS Status] -> [Web Server]
+}
+package "Web Browser" {
+    [Web Server] <-> [Web Config Portal] : HTTP
+}
+@enduml

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}
+    Camera Settings
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        .sub-entry {
+            width: 49%;
+            float: left;
+            margin-left: 1%;
+        }
+
+        .button {
+            text-align: center;
+            padding-top: 20px;
+            clear: both;
+        }
+    </style>
+
+    <form class="form-validation" method="post" action="settings.py" id="form1">
+        <div class="sub-entry">
+            <div class="form-row form-input-name-row">
+                <label>
+                    <span>Altitude AGL:</span>
+                    <input name="field1" type="text">
+                </label>
+            </div>
+            <div class="form-row form-input-name-row">
+                <label>
+                    <span>Setting 2</span>
+                    <input name="field2" type="text">
+                </label>
+            </div>
+        </div>
+        <div class="sub-entry">
+            <div class="main-content">
+                <div class="form-row form-input-name-row">
+                    <label>
+                        <span>Setting 3</span>
+                        <input name="field3" type="text">
+                    </label>
+                </div>
+                <div class="form-row form-input-name-row">
+                    <label>
+                        <span>Setting 4</span>
+                        <input name="field4" type="text">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <center>
+        <button type="submit" form="form1" value="Submit">Update Settings</button>
+    </center>
+{% endblock %}

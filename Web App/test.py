@@ -13,14 +13,14 @@ def home_page():
 def settings_page():
     return render_template('settings.html')
 
-@app.route('/market')
+'''@app.route('/market')
 def market_page():
     items = [
         {'id': 1, 'name': 'Phone', 'barcode': '893212299897', 'price': 500},
         {'id': 2, 'name': 'Laptop', 'barcode': '123985473165', 'price': 900},
         {'id': 3, 'name': 'Keyboard', 'barcode': '231985128446', 'price': 150}
     ]
-    return render_template('market.html', items=items)
+    return render_template('market.html', items=items)'''
 
 @app.route('/about/<username>')
 def about_page(username):

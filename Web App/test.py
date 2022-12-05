@@ -22,9 +22,9 @@ def market_page():
     ]
     return render_template('market.html', items=items)'''
 
-@app.route('/about/<username>')
+'''@app.route('/about/<username>')
 def about_page(username):
-    return f'<h1>About Page of {username}</h1>'
+    return f'<h1>About Page of {username}</h1>'''
 
 @app.route('/getImage')
 def get_img():
@@ -36,3 +36,7 @@ def cam_settings_page():
     name = output["name"]
 
     return render_template('settings.html')
+
+@app.route('/configuration')
+def config_page():
+    return render_template('config.html')

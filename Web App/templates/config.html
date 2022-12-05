@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %}
+    Configuration
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        .sub-entry {
+            width: 49%;
+            float: left;
+            margin-left: 1%;
+        }
+        
+        .whole-entry {
+            width: 98%;
+            float: left;
+            margin-left: 1%;
+        }
+
+        .button {
+            text-align: center;
+            padding-top: 20px;
+            clear: both;
+        }
+    </style>
+
+    <form class="form-validation" method="post" action="settings.py" id="form1">
+        <div class="sub-entry">
+            <center><p>Basic Configuration</p></center>
+            <div class="form-row form-input-name-row">
+                <label>
+                    <span>Auto-Capture Mode</span>
+                    <input name="field1" type="text">
+                </label>
+            </div>
+            <div class="form-row form-input-name-row">
+                <label>
+                    <span>Along-Track Overlap</span>
+                    <input name="field2" type="text">
+                </label>
+            </div>
+            <div class="form-row form-input-name-row">
+                <label>
+                    <span>Target Altitude</span>
+                    <input name="field2" type="text">
+                </label>
+            </div>
+            <div class="form-row form-input-name-row">
+                <label>
+                    <span>Target Altitude Tolerance</span>
+                    <input name="field2" type="text">
+                </label>
+            </div>
+            <div class="form-row form-input-name-row">
+                <label>
+                    <span>Manual Exposure</span>
+                    <input name="field2" type="text">
+                </label>
+            </div>
+        </div>
+        <div class="sub-entry">
+            <center><p>Advanced Configuration</p></center>
+            <div class="main-content">
+                <div class="form-row form-input-name-row">
+                    <label>
+                        <span>RAW File Format</span>
+                        <input name="field3" type="text">
+                    </label>
+                </div>
+                <div class="form-row form-input-name-row">
+                    <label>
+                        <span>PPS Pin Purpose</span>
+                        <input name="field4" type="text">
+                    </label>
+                </div>
+                <label>
+                    <center><span>SD Output Files</span></center>
+                </label>
+                <div class="form-row form-input-name-row">
+                    <label>
+                        <span>Camera 1</span>
+                        <input name="field2" type="text">
+                    </label>
+                </div>
+                <div class="form-row form-input-name-row">
+                    <label>
+                        <span>Camera 2</span>
+                        <input name="field2" type="text">
+                    </label>
+                </div>
+                <div class="form-row form-input-name-row">
+                    <label>
+                        <span>Multi-Camera Configuration</span>
+                        <input name="field2" type="text">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="whole-entry">
+    <center><button type="submit" form="form1" value="Submit">Save</button></center>
+    </div>
+
+{% endblock %}

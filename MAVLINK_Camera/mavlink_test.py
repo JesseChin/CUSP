@@ -9,7 +9,7 @@ STATE_SEND = 2
 if __name__ == "__main__":
     state = STATE_INIT
     
-    connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=57600)
+    connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=57600, source_system=1, source_component=2)
     print("Creating connection...")
     
     connection.wait_heartbeat()

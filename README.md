@@ -9,11 +9,46 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 
 ---
 ## Requirements
-- Python 3.9.2+
+
+### Hardware
 - Raspberry Pi 3/4 or Jetson Nano
 - Mavlink Capable Flight Controller
 - 15-pin Raspberry Pi Compatible Camera
 - Flir Lepton Thermal Imaging Sensor
 
+### Software
+- Python 3.9.2+
+- Pymavlink
+- Flask
+
 ---
-## 
+## System Diagram
+
+**TODO add diagram**
+
+---
+## Component Explanation
+
+`MAVLINK_Camera` is a folder containing test scripts intended to run on the raspberry pi. `mavlink_test.py` tests the mavlink connection and `camera_get.py` tests the attached camera.
+
+The `Web_App` folder contains all the files needed to host the web server on the Pasberry Pi. the server is written in python with Flask and html.
+
+The `docs` folder will contain any extra documentation as the project develops.
+
+---
+## Setup
+to use the Lepton sensor we needed to modify the kernel of the Pi. [This guide](https://github.com/FLIR/Lepton/blob/main/docs/RaspberryPiGuide.md) worked for us.
+
+Now to install pymavlink, run these commands:
+
+```
+sudo apt-get install python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame
+pip3 install PyYAML mavproxy --user
+echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+```
+
+After that, installing Flask is simple:
+
+```
+pip install Flask
+```

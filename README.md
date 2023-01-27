@@ -1,5 +1,7 @@
 # CUSP
 
+[github link](https://github.com/JesseChin/CUSP)
+
 ## Project Description
 
 The Compact UAV Sensor Package (CUSP) is a low-cost camera sensor package with a
@@ -52,3 +54,5 @@ After that, installing Flask is simple:
 ```
 pip install Flask
 ```
+
+Now make sure the system is wired as shown in the [System Diagram](#System-Diagram), and you should be able to run our test scripts.

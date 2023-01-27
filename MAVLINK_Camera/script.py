@@ -25,7 +25,7 @@ if __name__ == "__main__":
             msg = connection.recv_match(blocking=True)
         
             if not msg:
-                return
+                pass
             if msg.get_type() == "BAD_DATA":
                 if mavutil.all_printable(msg.data):
                     sys.stdout.write(msg.data)
@@ -45,7 +45,7 @@ if __name__ == "__main__":
             msg = connection.recv_match(blocking=True)
             
             if not msg: 
-                return
+                pass
             if msg.get_type() == "BAD_DATA":
                 if mavutil.all_printable(msg.data):
                     sys.stdout.write(msg.data)
@@ -62,7 +62,7 @@ if __name__ == "__main__":
             
             
         elif(state == PROG_STATE.SEND):
-            return
+            pass
                 #
                 # LOGIC FOR TAKING PHOTO HERE
                 #

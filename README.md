@@ -35,7 +35,7 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 
 The `Web_App` folder contains all the files needed to host the web server on the Pasberry Pi. the server is written in python with Flask and html.
 
-The `docs` folder will contain any extra documentation as the project develops. For example, `gcs_test_msg.PNG` shows that `mavlink_test.py` is functional.
+The `docs` folder will contain any extra documentation as the project develops. For example, `gcs_test_msg.PNG` and `gcs_test_msg1.PNG` show that `mavlink_test.py` is functional.
 
 ---
 ## Setup

@@ -25,7 +25,6 @@ if __name__ == "__main__":
             msg = connection.recv_match(blocking=True)
         
             if not msg:
-                print("pass")
                 pass
             if msg.get_type() == "BAD_DATA":
                 if mavutil.all_printable(msg.data):

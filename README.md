@@ -29,7 +29,7 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 ---
 ## Component Explanation
 
-`MAVLINK_Camera/script.py` is a test script intended to run on the raspberry pi and is used to test the functionality of the mavlink connection with the flight controller.
+`MAVLINK_Camera` is a folder containing test scripts intended to run on the raspberry pi. `mavlink_test.py` tests the mavlink connection and `camera_get.py` tests the attached camera.
 
 The `Web_App` folder contains all the files needed to host the web server on the Pasberry Pi. the server is written in python with Flask and html.
 

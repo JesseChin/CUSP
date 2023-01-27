@@ -25,7 +25,7 @@ if __name__ == "__main__":
             msg = connection.recv_match(blocking=True)
         
             if not msg:
-                #return
+                return
             if msg.get_type() == "BAD_DATA":
                 if mavutil.all_printable(msg.data):
                     sys.stdout.write(msg.data)
@@ -44,8 +44,8 @@ if __name__ == "__main__":
                 
             msg = connection.recv_match(blocking=True)
             
-            if not msg:
-                #return
+            if not msg: 
+                return
             if msg.get_type() == "BAD_DATA":
                 if mavutil.all_printable(msg.data):
                     sys.stdout.write(msg.data)

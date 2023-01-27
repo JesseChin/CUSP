@@ -39,7 +39,7 @@ The `docs` folder will contain any extra documentation as the project develops.
 ## Setup
 to use the Lepton sensor we needed to modify the kernel of the Pi. [This guide](https://github.com/FLIR/Lepton/blob/main/docs/RaspberryPiGuide.md) worked for us.
 
-Now to install pymavlink run these commands:
+Now to install pymavlink, run these commands:
 
 ```
 sudo apt-get install python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame

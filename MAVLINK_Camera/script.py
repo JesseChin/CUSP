@@ -21,6 +21,9 @@ if __name__ == "__main__":
     while(True):
         if(state == STATE_INIT):
             
+            #send a test message
+            connection.mav.statustext_send(mavutil.mavlink.MAV_SEVERITY_NOTICE,"Testing Message!!!".encode())
+            
             msg = connection.recv_match(blocking=True)
         
             if not msg:

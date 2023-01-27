@@ -9,11 +9,17 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 
 ---
 ## Requirements
-- Python 3.9.2+
+
+### Hardware
 - Raspberry Pi 3/4 or Jetson Nano
 - Mavlink Capable Flight Controller
 - 15-pin Raspberry Pi Compatible Camera
 - Flir Lepton Thermal Imaging Sensor
+
+### Software
+- Python 3.9.2+
+- Flask
+- Pymavlink
 
 ---
 ## System Diagram
@@ -25,4 +31,6 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 
 `MAVLINK_Camera/script.py` is a test script intended to run on the raspberry pi and is used to test the functionality of the mavlink connection with the flight controller.
 
-The `Web App` folder contains all the files needed to host the web app on 
+The `Web_App` folder contains all the files needed to host the web server on the Pasberry Pi. the server is written in python with Flask and html.
+
+The `docs` folder will contain any extra documentation as the project develops.

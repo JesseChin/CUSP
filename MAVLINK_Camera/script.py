@@ -22,7 +22,7 @@ if __name__ == "__main__":
                 msg = the_connection.recv_match(blocking=True)
         
                 if not msg:
-                    return
+                    #return
                 if msg.get_type() == "BAD_DATA":
                     if mavutil.all_printable(msg.data):
                         sys.stdout.write(msg.data)
@@ -38,10 +38,30 @@ if __name__ == "__main__":
             print('Mode: %s' % msg.mode)
             
             case PROG_STATE.IDLE:
+                
+                msg = the_connection.recv_match(blocking=True)
+            
+                    if not msg:
+                        #return
+                    if msg.get_type() == "BAD_DATA":
+                        if mavutil.all_printable(msg.data):
+                            sys.stdout.write(msg.data)
+                            sys.stdout.flush()
+                    else:
+                        if msg.get_type() == "MAV_CMD_REQUEST_MSG" and msg.param1 == 262 :
+                            mav_result_accepted_send() #need params
+                            
+                            state = PROG_STATE.SEND
+            
             
             #TODO: wait for MAV_CMD_REQUEST_MSG with param1 = 262
             # implement relative portion of the camera protocol and move into SEND state
             
             
             case PROG_STATE.SEND:
+                #
+                # LOGIC FOR TAKING PHOTO HERE
+                #
+                
+                #IMPLEMENT REST OF "interactive user-initiated image capture" sequence
         

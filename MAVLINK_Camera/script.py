@@ -1,4 +1,5 @@
 from pymavlink import mavutil
+import time
 
 class PROG_STATE(Enum):
     INIT = 0
@@ -9,9 +10,12 @@ class PROG_STATE(Enum):
 if __name__ == "__main__":
     state = PROG_STATE.INIT
     
-    connection = mavutil.mavlink_connection('/dev/serial0', baud=57600)
+    connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=57600)
+    print("Creating connection...")
+    
     
     connection.wait_heartbeat()
+    print("Heartbeat detected!")
     
     connection.mav.heartbeat_send(mavutil.mavlink.MAV_TYPE_CAMERA, mavutil.mavlink.MAV_AUTOPILOT_INVALID, 0, 0, 0)
     
@@ -19,7 +23,7 @@ if __name__ == "__main__":
         match state:
             case PROG_STATE.INIT:
             
-                msg = the_connection.recv_match(blocking=True)
+                msg = connection.recv_match(blocking=True)
         
                 if not msg:
                     #return
@@ -29,8 +33,8 @@ if __name__ == "__main__":
                         sys.stdout.flush()
                 else:
                     if msg.get_type() == "MAV_CMD_REQUEST_MSG" and msg.param1 == 259 :
-                        command_ack_send() #need params
-                        camera_information_send()
+                        connection.mav.command_ack_send() #need params
+                        connection.mav.camera_information_send()
                         state = PROG_STATE.IDLE
                       
             #Message is valid
@@ -39,7 +43,7 @@ if __name__ == "__main__":
             
             case PROG_STATE.IDLE:
                 
-                msg = the_connection.recv_match(blocking=True)
+                msg = connection.recv_match(blocking=True)
             
                     if not msg:
                         #return
@@ -49,7 +53,7 @@ if __name__ == "__main__":
                             sys.stdout.flush()
                     else:
                         if msg.get_type() == "MAV_CMD_REQUEST_MSG" and msg.param1 == 262 :
-                            mav_result_accepted_send() #need params
+                            connection.mav.mav_result_accepted_send() #need params
                             
                             state = PROG_STATE.SEND
             

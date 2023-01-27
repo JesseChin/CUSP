@@ -18,9 +18,8 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 
 ### Software
 - Python 3.9.2+
-- Flask
 - Pymavlink
-- opencv
+- Flask
 
 ---
 ## System Diagram
@@ -40,6 +39,16 @@ The `docs` folder will contain any extra documentation as the project develops.
 ## Setup
 to use the Lepton sensor we needed to modify the kernel of the Pi. [This guide](https://github.com/FLIR/Lepton/blob/main/docs/RaspberryPiGuide.md) worked for us.
 
-After that, install Python 3.9.2 or higher, then use pip to install Flask, Pymavlink, and opencv
+Now to install pymavlink run these commands:
 
-> `pip install Flask pymavlink opencv-python`
+```
+sudo apt-get install python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame
+pip3 install PyYAML mavproxy --user
+echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+```
+
+After that, installing Flask is simple:
+
+```
+pip install Flask
+```

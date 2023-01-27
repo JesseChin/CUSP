@@ -16,4 +16,13 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 - Flir Lepton Thermal Imaging Sensor
 
 ---
-## 
+## System Diagram
+
+**TODO add diagram**
+
+---
+## Component Explanation
+
+`MAVLINK_Camera/script.py` is a test script intended to run on the raspberry pi and is used to test the functionality of the mavlink connection with the flight controller.
+
+The `Web App` folder contains all the files needed to host the web app on 

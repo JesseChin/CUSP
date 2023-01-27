@@ -12,21 +12,20 @@ if __name__ == "__main__":
     connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=57600)
     print("Creating connection...")
     
-    
     connection.wait_heartbeat()
-    print("Heartbeat detected!")
+    print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
     
     connection.mav.heartbeat_send(mavutil.mavlink.MAV_TYPE_CAMERA, mavutil.mavlink.MAV_AUTOPILOT_INVALID, 0, 0, 0)
     
     while(True):
         if(state == STATE_INIT):
-            
             #send a test message
             connection.mav.statustext_send(mavutil.mavlink.MAV_SEVERITY_NOTICE,"Testing Message!!!".encode())
             
             msg = connection.recv_match(blocking=True)
         
             if not msg:
+                print("pass")
                 pass
             if msg.get_type() == "BAD_DATA":
                 if mavutil.all_printable(msg.data):

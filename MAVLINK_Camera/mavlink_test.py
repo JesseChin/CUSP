@@ -13,7 +13,7 @@ if __name__ == "__main__":
     print("Creating connection...")
     
     connection.wait_heartbeat()
-    print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
+    print("Heartbeat from system (system %u component %u)" % (connection.target_system, connection.target_component))
     
     connection.mav.heartbeat_send(mavutil.mavlink.MAV_TYPE_CAMERA, mavutil.mavlink.MAV_AUTOPILOT_INVALID, 0, 0, 0)
     

@@ -26,7 +26,7 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 ---
 ## System Diagram
 
-**TODO add diagram**
+![System Diagram](/docs/RPI_Connection_Diagram.png)
 
 ---
 ## Component Explanation

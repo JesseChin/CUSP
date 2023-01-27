@@ -62,6 +62,7 @@ if __name__ == "__main__":
             
             
         elif(state == PROG_STATE.SEND):
+            return
                 #
                 # LOGIC FOR TAKING PHOTO HERE
                 #

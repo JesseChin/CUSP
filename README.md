@@ -20,6 +20,7 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 - Python 3.9.2+
 - Flask
 - Pymavlink
+- opencv
 
 ---
 ## System Diagram
@@ -34,3 +35,11 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 The `Web_App` folder contains all the files needed to host the web server on the Pasberry Pi. the server is written in python with Flask and html.
 
 The `docs` folder will contain any extra documentation as the project develops.
+
+---
+## Setup
+to use the Lepton sensor we needed to modify the kernel of the Pi. [This guide](https://github.com/FLIR/Lepton/blob/main/docs/RaspberryPiGuide.md) worked for us.
+
+After that, install Python 3.9.2 or higher, then use pip to install Flask, Pymavlink, and opencv
+
+> `pip install Flask pymavlink opencv-python`

@@ -44,17 +44,17 @@ if __name__ == "__main__":
                 
             msg = connection.recv_match(blocking=True)
             
-                if not msg:
-                    #return
-                if msg.get_type() == "BAD_DATA":
-                    if mavutil.all_printable(msg.data):
-                        sys.stdout.write(msg.data)
-                        sys.stdout.flush()
-                    else:
-                        if msg.get_type() == "MAV_CMD_REQUEST_MSG" and msg.param1 == 262 :
-                            connection.mav.mav_result_accepted_send() #need params
+            if not msg:
+                #return
+            if msg.get_type() == "BAD_DATA":
+                if mavutil.all_printable(msg.data):
+                    sys.stdout.write(msg.data)
+                    sys.stdout.flush()
+                else:
+                    if msg.get_type() == "MAV_CMD_REQUEST_MSG" and msg.param1 == 262 :
+                        connection.mav.mav_result_accepted_send() #need params
                             
-                            state = PROG_STATE.SEND
+                        state = PROG_STATE.SEND
             
             
             #TODO: wait for MAV_CMD_REQUEST_MSG with param1 = 262

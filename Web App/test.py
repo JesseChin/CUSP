@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import json
 #from cv2 import *
 import time
 app = Flask(__name__)
@@ -40,3 +41,11 @@ def cam_settings_page():
 @app.route('/configuration')
 def config_page():
     return render_template('config.html')
+
+@app.route('/save', methods=['POST'])
+def save_json():
+    form_data = request.form
+    data = json.dumps(form_data)
+    with open('form_data.json', 'w') as outfile:
+        json.dump(data, outfile)
+    return 'JSON data saved to file'

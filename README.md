@@ -10,6 +10,15 @@ longwave infrared (LWIR, 8 μm to 14 μm) and a high-resolution RGB camera for u
 CUSP is a unique low cost and lightweight product that provides on-board Machine Learning processing, a simple web configuration portal, and is fully open-source. Existing commercial solutions which provide live on-board image recognition do exist, though they are not open-source and certainly not budget-friendly. Existing open-source implementations, such as Imaging Package for Remote Vehicles (imPROV) do not provide ML capabilities, rely on 4G to operate, and occupy a large volume. CUSP is the only low-cost, small, and open-source sensor capable of monitoring illegal charcoal production and Galamsey.
 
 ---
+## Screenshots
+
+![screenshot_1](/docs/Screenshots/screenshot_1.png)
+
+![screenshot_2](/docs/Screenshots/screenshot_2.png)
+
+![screenshot_3](/docs/Screenshots/screenshot_3.png)
+
+---
 ## Requirements
 
 ### Hardware

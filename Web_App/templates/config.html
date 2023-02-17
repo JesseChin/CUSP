@@ -5,6 +5,14 @@
 
 {% block content %}
 
+{% if show_alert %}
+<script>
+  window.onload = function() {
+    alert("JSON saved.");
+  };
+</script>
+{% endif %}
+
     <style>
         .sub-entry {
             width: 49%;
@@ -29,10 +37,11 @@
         <div class="sub-entry">
             <center><p>Basic Configuration</p></center>
             <div class="form-row form-input-name-row">
-                <label>
-                    <span>Auto-Capture Mode</span>
-                    <input name="auto-capture_mode" type="text">
-                </label>
+                <label for="acm">Auto-Capture Mode:</label>
+                    <select id="acmsel" name="acmode">
+                        <option value="Overlap">Overlap</option>
+                        <option value="Sample">Sample Option Not Sure</option>
+                    </select>
             </div>
             <div class="form-row form-input-name-row">
                 <label>

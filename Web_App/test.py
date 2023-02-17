@@ -48,4 +48,4 @@ def save_json():
     data = json.dumps(form_data)
     with open('form_data.json', 'w') as outfile:
         json.dump(data, outfile)
-    return 'JSON data saved to file'
+    return render_template('config.html', show_alert=True)

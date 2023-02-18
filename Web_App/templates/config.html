@@ -31,86 +31,105 @@
             padding-top: 20px;
             clear: both;
         }
+
+        p {
+            font-size: xx-large;
+        }
+
     </style>
 
     <form class="form-validation" method="post" id="config_form" action="/save" enctype="application/json">
         <div class="sub-entry">
             <center><p>Basic Configuration</p></center>
-            <div class="form-row form-input-name-row">
-                <label for="acm">Auto-Capture Mode:</label>
+            <div class="form-row">
+                <label for="acm">
+                    <span>Auto-Capture Mode:</span>
                     <select id="acmsel" name="acmode">
                         <option value="Overlap">Overlap</option>
-                        <option value="Sample">Sample Option Not Sure</option>
+                        <option value="Sample">PWM</option>
                     </select>
+                </label>
             </div>
-            <div class="form-row form-input-name-row">
-                <label>
+            <div class="form-row">
+                <label for="along-track_overlap" title="Sideways Overlap Integer Percentage Value">
                     <span>Along-Track Overlap</span>
                     <input name="along-track_overlap" type="text">
                 </label>
             </div>
-            <div class="form-row form-input-name-row">
-                <label>
+            <div class="form-row">
+                <label for="target_altitude">
                     <span>Target Altitude</span>
                     <input name="target_altitude" type="text">
                 </label>
             </div>
-            <div class="form-row form-input-name-row">
-                <label>
+            <div class="form-row">
+                <label for="target_altitude_tolerance" title="Amount of leeway provided for images to trigger.">
                     <span>Target Altitude Tolerance</span>
                     <input name="target_altitude_tolerance" type="text">
                 </label>
             </div>
-            <div class="form-row form-input-name-row">
-                <label>
+            <div class="form-row">
+                <label for="mename">
                     <span>Manual Exposure</span>
-                    <input name="manual_exposure" type="text">
+                    <select id="mesel" name="mename">
+                        <option value="Enabled">Enabled</option>
+                        <option value="Disabled">Disabled</option>
+                    </select>
                 </label>
             </div>
         </div>
         <div class="sub-entry">
             <center><p>Advanced Configuration</p></center>
             <div class="main-content">
-                <div class="form-row form-input-name-row">
-                    <label>
+                <div class="form-row">
+                    <label for="rffsel" title="Choose output format for RAW files.">
                         <span>RAW File Format</span>
-                        <input name="raw_file_format" type="text">
-                    </label>
-                </div>
-                <div class="form-row form-input-name-row">
-                    <label>
-                        <span>PPS Pin Purpose</span>
-                        <input name="pps_pin_purpose" type="text">
+                        <select id="rffsel" name="rffname">
+                            <option value="JPEG">JPEG</option>
+                            <option value="TIFF">TIFF</option>
+                        </select>
                     </label>
                 </div>
                 <label>
                     <center><span>SD Output Files</span></center>
                 </label>
-                <div class="form-row form-input-name-row">
-                    <label>
+                <div class="form-row">
+                    <label for="cam1">
                         <span>Camera 1</span>
-                        <input name="camera_1" type="text">
+                        <select id="cam1" name="c1out">
+                            <option value="JPEG">JPEG</option>
+                            <option value="TIFF">TIFF</option>
+                        </select>
                     </label>
                 </div>
-                <div class="form-row form-input-name-row">
-                    <label>
+                <div class="form-row">
+                    <label for="cam2">
                         <span>Camera 2</span>
-                        <input name="camera_2" type="text">
+                        <select id="cam2" name="c2out">
+                            <option value="JPEG">JPEG</option>
+                            <option value="TIFF">TIFF</option>
+                        </select>
                     </label>
                 </div>
-                <div class="form-row form-input-name-row">
-                    <label>
+                <div class="form-row">
+                    <label for="mcconfig" title="Select which cameras to be enabled.">
                         <span>Multi-Camera Configuration</span>
-                        <input name="multi-camera_configuration" type="text">
+                        <select id="mcsel" name="mcconfig">
+                            <option value="RGB">RGB</option>
+                            <option value="Thermal">Thermal</option>
+                            <option value="Both">Both</option>
+                        </select>
                     </label>
                 </div>
             </div>
         </div>
-        <div class="form-row form-input-name-row">
-            <label>
-                <center><span>Model Targets</span></center>
-                <input name="model_targets" type="text">
-            </label>
+        <div class="sub-entry"> 
+            <div class="form-row">
+                <label for="model_targets" title="Target classes for the machine learning model.">
+                    <span>Model Targets</span>
+                    <input name="model_targets" type="text">
+                </label>
+            </div>
         </div>
 
         <div class="whole-entry">

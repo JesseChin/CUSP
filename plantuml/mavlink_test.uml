@@ -1,0 +1,52 @@
+@startuml
+hide empty description
+state "Pre-Init" as preinit {
+    state "Setup link with GCS" as link1
+    state "Exchange heartbeat signal with GCS" as heartbeat1
+    link1 -right-> heartbeat1
+}
+
+preinit --> Init
+
+state Init {
+    state "Send test message" as msg1
+    state "Wait for message from GCS" as msg_gcs
+    msg1 -left-> msg_gcs
+    
+    state c1 <<choice>>
+    
+    msg_gcs -down-> c1
+    c1 -down-> cmd1 : [if message == MAV_CMD_REQUEST_MSG && param1 == 259]
+    c1 -left-> msg_gcs : [else]
+    
+    state "Send COMMAND_ACK to GCS" as cmd1
+    state "Wait for MAV_RESULT_ACCEPTED" as wait1
+    state "Send camera information" as cam1
+    
+    cmd1 -right-> wait1
+    wait1 -right->cam1
+}
+
+Init --> Idle
+
+state Idle {
+    state "Wait for message from GCS" as msg_gcs2
+    state "Relative portion of capture sequence" as cap1
+
+    state c2 <<choice>>
+    
+    msg_gcs2 -down-> c2
+    c2 --> cap1 : [if message == MAV_CMD_REQUEST_MSG && param1 == 262]
+    c2 -left-> msg_gcs2 : [else]
+
+}
+
+Idle --> Send
+
+state Send {
+    state "Execute rest of capture sequence" as exec1
+}
+
+Send -up->Idle
+
+@enduml

@@ -23,66 +23,70 @@
             padding-top: 20px;
             clear: both;
         }
+
+        p {
+            font-size: xx-large;
+        }
     </style>
 
-    <center><p>Flight Estimator</p></center>
-    <form class="form-validation" method="post" action="settings.py" id="form1">
+    <center><p>Pre-Flight Estimator</p></center>
+    <form class="form-validation" method="post" action="/calculate" id="form1">
         <div class="sub-entry">
             <div class="form-row form-input-name-row">
-                <label>
+                <label for="alt" title="Altitude Above Ground Level (meters)">
                     <span>Altitude AGL</span>
-                    <input name="field1" type="text">
+                    <input name="alt" type="number">
                 </label>
             </div>
             <div class="form-row form-input-name-row">
-                <label>
+                <label for="fs" title="(meters per second)">
                     <span>Flight Speed</span>
-                    <input name="field2" type="text">
+                    <input name="fs" type="number">
                 </label>
             </div>
             <div class="form-row form-input-name-row">
-                <label>
+                <label for="fo" title="(%)">
                     <span>Forward Overlap</span>
-                    <input name="field2" type="text">
+                    <input name="fo" type="number">
                 </label>
             </div>
             <div class="form-row form-input-name-row">
-                <label>
+                <label for="corientsel">
                     <span>Camera Orientation</span>
-                    <input name="field2" type="text">
-                </label>
-            </div>
-            <div class="form-row form-input-name-row">
-                <label>
-                    <span>Aircraft Type</span>
-                    <input name="field2" type="text">
+                    <select id="corientsel" name="corientname">
+                        <option value="Landscape">Landscape</option>
+                        <option value="Portrait">Portrait</option>
+                    </select>
                 </label>
             </div>
         </div>
         <div class="sub-entry">
             <div class="main-content">
                 <div class="form-row form-input-name-row">
-                    <label>
+                    <label for="GSD" title="Ground Sampling Distance (centimeter per pixel))">
                         <span>GSD</span>
-                        <input name="field3" type="text">
+                        <input name="gsd" type="number">
                     </label>
                 </div>
                 <div class="form-row form-input-name-row">
-                    <label>
+                    <label for="area" title="(acres)">
                         <span>Area of the Field</span>
-                        <input name="field4" type="text">
+                        <input name="area" type="number">
                     </label>
                 </div>
                 <div class="form-row form-input-name-row">
-                    <label>
+                    <label for="co" title="(%)">
                         <span>Cross Overlap</span>
-                        <input name="field2" type="text">
+                        <input name="co" type="number">
                     </label>
                 </div>
                 <div class="form-row form-input-name-row">
-                    <label>
+                    <label for="iosel" title="Choose output format.">
                         <span>Image Output</span>
-                        <input name="field2" type="text">
+                        <select id="iosel" name="ioname">
+                            <option value="JPEG">JPEG</option>
+                            <option value="TIFF">TIFF</option>
+                        </select>
                     </label>
                 </div>
             </div>
@@ -95,71 +99,41 @@
     <center><p>Estimated Mission Result</p></center>
     </div>
 
-    <div class="sub-entry">
-        <div class="form-row form-input-name-row">
-            <label>
-                <span>Footprint Width</span>
-                <input name="field1" type="text">
-            </label>
-        </div>
-        <div class="form-row form-input-name-row">
-            <label>
-                <span>Distance Between Capture</span>
-                <input name="field2" type="text">
-            </label>
-        </div>
-        <div class="form-row form-input-name-row">
-            <label>
-                <span>Time Between Capture</span>
-                <input name="field2" type="text">
-            </label>
-        </div>
-        <div class="form-row form-input-name-row">
-            <label>
-                <span>Number of Captures</span>
-                <input name="field2" type="text">
-            </label>
-        </div>
-        <div class="form-row form-input-name-row">
-            <label>
-                <span>Area per Hour</span>
-                <input name="field2" type="text">
-            </label>
-        </div>
-    </div>
-    <div class="sub-entry">
-        <div class="main-content">
-            <div class="form-row form-input-name-row">
-                <label>
-                    <span>Footprint Height</span>
-                    <input name="field3" type="text">
-                </label>
-            </div>
-            <div class="form-row form-input-name-row">
-                <label>
-                    <span>Distance Between Track</span>
-                    <input name="field4" type="text">
-                </label>
-            </div>
-            <div class="form-row form-input-name-row">
-                <label>
-                    <span>Flight Time</span>
-                    <input name="field2" type="text">
-                </label>
-            </div>
-            <div class="form-row form-input-name-row">
-                <label>
-                    <span>Number of Images</span>
-                    <input name="field2" type="text">
-                </label>
-            </div>
-            <div class="form-row form-input-name-row">
-                <label>
-                    <span>Storage Space Required</span>
-                    <input name="field2" type="text">
-                </label>
-            </div>
-        </div>
-    </div>
+    {% if width %}
+    <center>
+    <table>
+        <tr>
+            <td>Footprint Width</td>
+            <td>{{ width }}</td>
+            <td>Footprint Height</td>
+            <td>{{ height }}</td>
+        </tr>
+        <tr>
+            <td>Distance Between Captures</td>
+            <td>{{ disBetCap }}</td>
+            <td>Distance Between Track</td>
+            <td>{{ disBetTrack }}</td>
+        </tr>
+        <tr>
+            <td>Time Between Captures</td>
+            <td>{{ tBetCap }}</td>
+            <td>Flight Time</td>
+            <td>{{ flightTime }}</td>
+        </tr>
+        <tr>
+            <td>Number of Captures</td>
+            <td>{{ numCap }}</td>
+            <td>Number of Images</td>
+            <td>{{ numImg }}</td>
+        </tr>
+        <tr>
+            <td>Area per Hour</td>
+            <td>{{ areaPerHour }}</td>
+            <td>Storage Space Requirement</td>
+            <td>{{ ssr }}</td>
+        </tr>
+    </table>
+    </center>
+    {% endif %}
 
 {% endblock %}

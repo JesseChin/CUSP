@@ -22,21 +22,22 @@
       </title>
    </head>
    <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">UAV Web App</a>
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #3278aa;">
+      <a class="navbar-brand" href="{{ url_for('home_page') }}">UAV Web App</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ url_for('home_page') }}">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('settings_page') }}">
+                  <img src="{{ url_for('static', filename='icons/settings_icon.png') }}" alt ="Settings" width="50" height="50">
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('settings_page') }}">Settings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('config_page') }}">Config</a>
+              <a class="nav-link" href="{{ url_for('config_page') }}">
+                <img src="{{ url_for('static', filename='icons/config_icon.png') }}" alt="Config" width="50" height="50">
+              </a>
             </li>
         </ul>
       </div>
@@ -44,12 +45,6 @@
       {% block content %}
 
       {% endblock %}
-      <!-- Future Content here -->
-
-
-
-      <!-- Optional JavaScript -->
-      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src='https://kit.fontawesome.com/a076d05399.js'></script>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -63,6 +58,40 @@
       body {
       background-color: #212121;
       color: white
+      }
+
+      label {
+        display: inline-block;
+        width: 200px;
+        vertical-align: middle;
+      }
+
+      input, select {
+        background-color: rgb(188, 185, 185);
+        width: 200px;
+        height: 30px;
+        margin-bottom: 5px;
+        vertical-align: middle;
+      }
+
+      .form-row {
+        display: flex;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-top: 10px;
+      }
+
+      table {
+        border-collapse: collapse;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
       }
    </style>
 </html>

@@ -1,7 +1,12 @@
 from flask import Flask, render_template, request
 import json
+import math
 #from cv2 import *
 import time
+
+LEPTON_HFOV = 45.6
+LEPTON_VFOV = 34.2
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -35,25 +40,25 @@ def calculate():
     width = None
 
     if request.method == 'POST':
-        alt = int(request.form['alt'])
-        fs = int(request.form['fs'])
-        fo = int(request.form['fo'])
-        co = int(request.form['co'])
-        corient = request.form['corientname']
-        gsd = int(request.form['gsd'])
-        area = int(request.form['area'])
-        ioname = request.form['ioname']
+        Altitude = int(request.form['alt'])
+        Flight_Speed = int(request.form['fs'])
+        Forward_Overlap = int(request.form['fo'])
+        Cross_Overlap = int(request.form['co'])
+        Camera_Orientation = request.form['corientname']
+        Ground_Sampling_Distance = int(request.form['gsd'])
+        Field_Area = int(request.form['area'])
+        File_Format = request.form['ioname']
 
-        if corient == 
-        width = 
-        height = 
-        disBetCap = 
-        disBetTrack = 
-        tBetCap = 
-        flightTime = 
-        numCap = 
-        numImg = 
-        areaPerHour = 
-        ssr = 
+        Footprint_Width = 2*math.tan(math.radians(LEPTON_HFOV/2))*AGL
+        Footprint_Height= 2*math.tan(math.radians(LEPTON_VFOV/2))*AGL
+        if (Camera_Orientation == "Portrait"):
+            Footprint_Width, Footprint_Height = Footprint_Height, Footprint_Width # swap
+        Distance_Between_Capture = (Footprint_Height)*(1 - Forward_Overlap)
+        Distance_Between_Track = (Footprint_Width)*(1 - Cross_Overlap)
+        Time_Between_Capture = (Distance_Between_Capture)/(Flight_Speed)
+        Number_of_Captures = 4046.86*Field_Area/(Footprint_Width*Footprint_Height*(1 - Forward_Overlap))
+        Number_of_Images = 2*Number_of_Captures
+        Area_per_Hour = (Footprint_Width*Footprint_Height*(1 - Forward_Overlap))/Time_Between_Capture * 3600/4046.86
+        Storage_Space_Requirement = 50000*Number_of_Images # this is a placeholder value
 
     return render_template('settings.html', width=width)

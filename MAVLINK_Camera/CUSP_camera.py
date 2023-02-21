@@ -5,6 +5,10 @@ from CUSP_error_types import Error
 import os
 from datetime import datetime
 import stat
+from exiftool import ExifToolHelper
+from datetime import datetime
+from CUSP_gps import *
+
 
 def device_exists(path):
      try:
@@ -53,4 +57,11 @@ def capture_thermal():
 
 
 def write_metadata(filename):
+    latitude, longitude, altitude = get_GPS_data()
+    with ExifToolHelper() as et:
+        et.set_tags(
+            ["frame.jpg"],
+            tags={"GPSLatitude": latitude, "GPSLongitude": longitude, "GPSAltitude": altitude},
+            params=["-P", "-overwrite_original"],
+        )
     return Error.NO_ERROR

@@ -7,14 +7,15 @@ from datetime import datetime
 import stat
 from exiftool import ExifToolHelper
 from datetime import datetime
-from CUSP_gps import *
+from mock_gps import *
 
 
 def device_exists(path):
-     try:
-             return stat.S_ISBLK(os.stat(path).st_mode)
-     except:
-             return False
+    try:
+        return stat.S_ISBLK(os.stat(path).st_mode)
+    except:
+        return False
+
 
 def capture_rgb():
     # Check for presence of camera
@@ -24,15 +25,17 @@ def capture_rgb():
 
     # Set file name
     dt = datetime.now()
-    filename = (str)dt
+    filename = str(dt)
     # Capture image
-    OUTPUT_PATH = '/home/sixth/images/'
-    cmd = 'libcamera-still -t 5000 -o ' + OUTPUT_PATH + filename
+    OUTPUT_PATH = "/home/sixth/images/"
+    cmd = "libcamera-still -n -o " + OUTPUT_PATH + filename
 
     os.system(cmd)
 
     if write_metadata(OUTPUT_PATH + filename) == Error.NO_ERROR:
         return Error.NO_ERROR
+
+    return Error.CAPTURE_ERROR
 
 
 def capture_thermal():
@@ -43,25 +46,31 @@ def capture_thermal():
 
     # Set file name
     dt = datetime.now()
-    filename = (str)dt
+    filename = str(dt)
     # Capture image
 
-    LEPTON_DATA_COLLECTOR_PATH = 'external/lepton_data_collector/lepton_data_collector'
-    OUTPUT_PATH = '/home/sixth/images/'
-    cmd = LEPTON_DATA_COLLECTOR_PATH + ' -3 -c 1 -o' + OUTPUT_PATH + filename
+    LEPTON_DATA_COLLECTOR_PATH = "external/lepton_data_collector/lepton_data_collector"
+    OUTPUT_PATH = "/home/sixth/images/"
+    cmd = LEPTON_DATA_COLLECTOR_PATH + " -3 -c 1 -o" + OUTPUT_PATH + filename
 
     os.system(cmd)
 
     if write_metadata(OUTPUT_PATH + filename) == Error.NO_ERROR:
         return Error.NO_ERROR
 
+    return Error.CAPTURE_ERROR
+
 
 def write_metadata(filename):
-    latitude, longitude, altitude = get_GPS_data()
+    latitude, longitude, altitude = GPS_dev.get_GPS_data()
     with ExifToolHelper() as et:
         et.set_tags(
-            ["frame.jpg"],
-            tags={"GPSLatitude": latitude, "GPSLongitude": longitude, "GPSAltitude": altitude},
+            [filename],
+            tags={
+                "GPSLatitude": latitude,
+                "GPSLongitude": longitude,
+                "GPSAltitude": altitude,
+            },
             params=["-P", "-overwrite_original"],
         )
     return Error.NO_ERROR

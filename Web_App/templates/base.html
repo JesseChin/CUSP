@@ -22,26 +22,27 @@
       </title>
    </head>
    <body>
-    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #3278aa;">
-      <a class="navbar-brand" href="{{ url_for('home_page') }}">UAV Web App</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('settings_page') }}">
-                  <img src="{{ url_for('static', filename='icons/settings_icon.png') }}" alt ="Settings" width="50" height="50">
-                </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('config_page') }}">
-                <img src="{{ url_for('static', filename='icons/config_icon.png') }}" alt="Config" width="50" height="50">
-              </a>
-            </li>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a class="{{ 'active' if active_page == 'home_page' else '' }}" href="/home">
+              UAV Web App
+            </a>
+          </li>
+          <li>
+            <a class="{{ 'active' if active_page == 'settings_page' else '' }}" href="/settings">
+              <img src="{{ url_for('static', filename='icons/settings_icon.png') }}" alt="Config" width="50" height="50">
+            </a>
+          </li>
+          <li>
+            <a class="{{ 'active' if active_page == 'config_page' else '' }}" href="/configuration">
+              <img src="{{ url_for('static', filename='icons/config_icon.png') }}" alt="Config" width="50" height="50">
+            </a>
+          </li>
         </ul>
-      </div>
-    </nav>
+      </nav>
+    </header>
       {% block content %}
 
       {% endblock %}
@@ -92,6 +93,41 @@
       th, td {
         padding: 10px;
         border: 1px solid #ccc;
+      }
+
+      header {
+        background-color: #3278aa;
+        height: 80px;
+        padding: 0 20px;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      li {
+        margin: 0 10px;
+      }
+
+      a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 24px;
+      }
+
+      a.active,
+      a:focus {
+        background-color: #146eb3;
       }
    </style>
 </html>

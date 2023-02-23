@@ -36,5 +36,15 @@ def fetch_GPS_data():
     return
 
 
+def get_GPS_data():
+    """
+    Return GPS data without polling flight controller
+    """
+    latitude: float = 0
+    longitude: float = 0
+    altitude: int = 0
+    return latitude, longitude, altitude
+
+
 def GPS_init():
     return

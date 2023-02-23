@@ -40,13 +40,14 @@
 
     <form class="form-validation" method="post" id="config_form" action="/save" enctype="application/json">
         <div class="sub-entry">
-            <center><p>Basic Configuration</p></center>
+            <p>Basic Configuration</p>
             <div class="form-row">
                 <label for="acm">
                     <span>Auto-Capture Mode:</span>
                     <select id="acmsel" name="acmode">
                         <option value="Overlap">Overlap</option>
-                        <option value="Sample">PWM</option>
+                        <option value="PWM">PWM</option>
+                        <option value="Periodic">Periodic</option>
                     </select>
                 </label>
             </div>
@@ -79,7 +80,7 @@
             </div>
         </div>
         <div class="sub-entry">
-            <center><p>Advanced Configuration</p></center>
+            <p>Advanced Configuration</p>
             <div class="main-content">
                 <div class="form-row">
                     <label for="rffsel" title="Choose output format for RAW files.">
@@ -133,7 +134,8 @@
         </div>
 
         <div class="whole-entry">
-            <center><button type="submit" value="Submit" class="submit-button">Save</button></center>
+            <center><button type="submit" value="Submit" class="submit-button"><font size="+2"><b>Save</b></font></button></center>
+            <p></p>
         </div>
 
     </form>

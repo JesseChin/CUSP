@@ -35,16 +35,21 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 ## System Diagram
 
 ![System Diagram](/docs/System_Diagram_RPI.png)
+
 ![Raspberry Pi <---> Flight Control](/docs/RPI_Connection_Diagram.png)
 
 ---
 ## Component Explanation
 
-`MAVLINK_Camera` is a folder containing test scripts intended to run on the raspberry pi. `mavlink_test.py` tests the MAVLink connection and `camera_get.py` tests the attached camera.
+`MAVLINK_Camera` is a folder containing test scripts intended to run on the raspberry pi. `get_params_test.py` and `mavlink_test.py` tests the MAVLink connection and `camera_get.py` tests the attached camera. `CUSP_camera.py` is the camera capturing module, `CUSP_error_types.py` is the error type module, `CUSP_gps.py` is the gps handling module, `CUSP_messages.py` is the module containing our message enumerations, `CUSP_trigger.py` is the moduel containing logic for specific event triggers, and finally `main.py` is the application stating point.
 
-The `Web_App` folder contains all the files needed to host the web server on the Raspberry Pi. The server is written in Python with Flask and HTML+CSS+JS.
+captured images are saved in the `$HOME/data` directory on the pi.
+
+The `Web_App` folder contains all the files needed to host the web server on the Raspberry Pi. The server is written in Python with Flask and HTML+CSS. the static folder contains all the assets and the templates folder contains all the html files. `app.py` is the starting point.
 
 The `docs` folder will contain any extra documentation as the project develops. For example, `gcs_test_msg.PNG` and `gcs_test_msg1.PNG` show that `mavlink_test.py` is functional.
+
+The `sim` folder contains all our files to help simualte a flight controller in flight so we do not need to actually fly a drone to develop new featues. [This README](sim/README.md) contains much more info.
 
 ---
 ## Setup

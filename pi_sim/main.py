@@ -33,6 +33,8 @@ def poll_GPS(periodSeconds, GPS):
         # might have to bump up frequency depending on how fast it's flying
         sleep(periodSeconds)
 
+def startTrigger(trigger):
+    trigger.trigger_loop()
 
 def main():
 
@@ -68,11 +70,19 @@ def main():
 
     configData = json.load(configJSON)
 
-    print(configData)
+    # print(configData)
+
+    trigger = Trigger_Timer()
+    triggerProcess = Thread(target=startTrigger, args=(trigger,))
+    triggerProcess.start()
+
+    trigger.set_period(5)
+    trigger.activate_trigger()
+    print("trigger activated")
+
     # while True:
-        # print(GPS_dev.get_GPS_data())
-        # sleep(0.1)
-    # capture_rgb()
+    #     print(GPS_dev.get_GPS_data())
+    #     sleep(0.1)
 
 
 if __name__ == "__main__":

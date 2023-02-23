@@ -63,7 +63,7 @@ def calculate():
         Flight_Time = Number_of_Captures*Time_Between_Capture
         Number_of_Images = 2*Number_of_Captures
         Area_per_Hour = (Footprint_Width*Footprint_Height*(1 - Forward_Overlap))/Time_Between_Capture * 3600/4046.86
-        Storage_Space_Requirement = 32*Number_of_Images # this is a placeholder value
+        Storage_Space_Requirement = 1.94*Number_of_Images
 
         Footprint_Width = str(round(Footprint_Width, 2)) + " m"
         Footprint_Height = str(round(Footprint_Height, 2)) + " m"
@@ -74,6 +74,6 @@ def calculate():
         Flight_Time = str(round(Flight_Time, 2)) + " s"
         Number_of_Images = str(round(Number_of_Images, 1))
         Area_per_Hour = str(round(Area_per_Hour, 2)) + " m^2/H"
-        Storage_Space_Requirement = str(round(Storage_Space_Requirement, 2)) + " KB"
+        Storage_Space_Requirement = str(round(Storage_Space_Requirement, 2)) + " MB"
 
     return render_template('settings.html', width=Footprint_Width, height=Footprint_Height, disBetCap=Distance_Between_Capture, disBetTrack=Distance_Between_Track, tBetCap=Time_Between_Capture, flightTime=Flight_Time, numCap=Number_of_Captures, numImg=Number_of_Images, areaPerHour=Area_per_Hour, ssr=Storage_Space_Requirement, active_page='settings_page')

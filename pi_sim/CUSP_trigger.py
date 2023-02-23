@@ -15,8 +15,15 @@ class Trigger_Timer:
     """
     When activated,
     """
+    periodSeconds = 5
 
     active = False
+
+    def set_period(seconds):
+        periodSeconds = seconds
+
+    def set_frequency(Hz):
+        periodSeconds = 1/Hz
 
     def activate_trigger():
         active = True

@@ -4,6 +4,8 @@ from pymavlink import mavutil
 from dataclasses import dataclass
 import time
 import sys
+# from multiprocessing import Process, Lock
+from threading import Thread, Lock
 
 """
 Module for returning GPS coords
@@ -11,6 +13,9 @@ Module for returning GPS coords
 
 
 class GPSClass:
+
+    GPSmutex = Lock()
+
     Latitude: float = 0  # rational64u
     LatitudeRef: str = "N"
     Longitude: float = 0  # rational64u
@@ -19,12 +24,14 @@ class GPSClass:
     Satellites: str = ""
 
     def set_mock_gps_data(self, latitude, longitude, altitude):
-        self.Latitude = latitude
-        self.Longitude = longitude
-        self.Altitude = altitude
+        with self.GPSmutex:
+            self.Latitude = latitude
+            self.Longitude = longitude
+            self.Altitude = altitude
 
     def get_GPS_data(self):
-        return self.Latitude, self.Longitude, self.Altitude
+        with self.GPSmutex:
+            return self.Latitude, self.Longitude, self.Altitude
 
     def fetch_GPS_data(self):
         """
@@ -34,6 +41,3 @@ class GPSClass:
         retVal: Error code
         """
         return
-
-
-GPS_dev = GPSClass()

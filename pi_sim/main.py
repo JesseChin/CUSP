@@ -8,29 +8,33 @@ import sys
 from CUSP_camera import *
 from CUSP_trigger import *
 from mock_gps import *
+import json
+# from multiprocessing import Process
+from threading import Thread, Lock
 
 """
 Main program to run CUSP
 """
 
-# mocked variables
-mock_latitude: float = 29.65
-mock_longitude: float = -82.30
-mock_altitude: float = 30.0
-
-
-async def poll_GPS():
+def poll_GPS(periodSeconds, GPS):
     # Handle polling GPS data here
+
+    # mocked variables
+    mock_latitude: float = 29.65
+    mock_longitude: float = -82.30
+    mock_altitude: float = 30.0
+
     while True:
         # GPS_dev.fetch_GPS_data()
         mock_latitude += 0.001
 
-        GPS_dev.set_mock_gps_data(mock_latitude, mock_longitude, mock_altitude)
+        GPS.set_mock_gps_data(mock_latitude, mock_longitude, mock_altitude)
         # might have to bump up frequency depending on how fast it's flying
-        await asyncio.sleep(0.1)
+        
+        sleep(periodSeconds)
 
 
-async def main():
+def main():
 
     # Activate connection to flight controller
 
@@ -55,8 +59,21 @@ async def main():
     GPS_init()
     """
 
-    await asyncio.gather(poll_GPS)
+    GPS_dev = GPSClass()
+
+    GPSprocess = Thread(target=poll_GPS, args=(0.1,GPS_dev,))
+    GPSprocess.start()
+
+    configJSON = open("../Web_App/form_data.json")
+
+    configData = json.load(configJSON)
+
+    print(configData)
+    # while True:
+        # print(GPS_dev.get_GPS_data())
+        # sleep(0.1)
+    # capture_rgb()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

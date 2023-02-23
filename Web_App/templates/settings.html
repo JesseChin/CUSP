@@ -5,6 +5,14 @@
 
 {% block content %}
 
+{% if show_alert %}
+<script>
+  window.onload = function() {
+    alert("Please Provide a Value for all Fields");
+  };
+</script>
+{% endif %}
+
     <style>
         .sub-entry {
             width: 49%;

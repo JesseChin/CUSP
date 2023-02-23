@@ -9,6 +9,7 @@ from CUSP_camera import *
 from CUSP_trigger import *
 from mock_gps import *
 import json
+import random
 # from multiprocessing import Process
 from threading import Thread, Lock
 
@@ -22,11 +23,12 @@ def poll_GPS(periodSeconds, GPS):
     # mocked variables
     mock_latitude: float = 29.65
     mock_longitude: float = -82.30
-    mock_altitude: float = 30.0
+    mock_altitude: float = 28.0
 
     while True:
         # GPS_dev.fetch_GPS_data()
-        mock_latitude += 0.001
+        mock_latitude += 0.03*random.random()
+        mock_altitude += 0.01*random.random()
 
         GPS.set_mock_gps_data(mock_latitude, mock_longitude, mock_altitude)
 
@@ -34,7 +36,8 @@ def poll_GPS(periodSeconds, GPS):
         sleep(periodSeconds)
 
 def startTrigger(trigger):
-    trigger.trigger_loop()
+    while True:
+        trigger.trigger_loop()
 
 def main():
 
@@ -67,22 +70,46 @@ def main():
     GPSprocess.start()
 
     configJSON = open("../Web_App/form_data.json")
-
     configData = json.load(configJSON)
-
-    # print(configData)
+    configData = json.loads(configData)
+    oldData = configData
 
     trigger = Trigger_Timer()
+    trigger.deactivate_trigger()
     triggerProcess = Thread(target=startTrigger, args=(trigger,))
     triggerProcess.start()
 
-    trigger.set_period(5)
-    trigger.activate_trigger()
-    print("trigger activated")
+    trigger.set_period(15)
 
-    # while True:
-    #     print(GPS_dev.get_GPS_data())
-    #     sleep(0.1)
+    tick = 0
+    while True:
+        if tick%120 == 0:
+            print("JSON verified")
+            configJSON = open("../Web_App/form_data.json")
+            oldData = configData
+            configData = json.load(configJSON)
+            configData = json.loads(configData)
+            if (oldData['acmode'] != configData['acmode']):
+                # update trigger mode
+                if (configData['acmode'] == "Periodic"):
+                    trigger = Trigger_Timer() # TODO add mutex to the startTrigger loop
+                    trigger.set_period(15)
+                # elif (configData['acmode'] == "Overlap"):
+                #     trigger = Trigger_Overlap()
+                # elif (configData['acmode'] == "PWM"):
+                #     trigger = Trigger_PWM()
+        
+        latitude, longitude, altitude = GPS_dev.get_GPS_data()
+
+        if (float(configData['target_altitude']) > altitude - float(configData['target_altitude_tolerance']) and float(configData['target_altitude']) < altitude + float(configData['target_altitude_tolerance'])):
+            trigger.activate_trigger()
+            print(f"Altitude within tolerance: {altitude}")
+        else:
+            trigger.deactivate_trigger()
+            print(f"Altitude outside tolerance: {altitude}")
+
+        sleep(1)
+        tick += 1
 
 
 if __name__ == "__main__":

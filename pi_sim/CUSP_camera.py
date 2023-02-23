@@ -27,7 +27,7 @@ def capture_rgb():
 
     # Set file name
     dt = datetime.now()
-    filename = dt.strftime("%Y-%m-%d_%H-%M-%S") + ".jpg"
+    filename = dt.strftime("%Y-%m-%d_%H-%M-%S") + "_RGB.jpg"
     # Capture image
     OUTPUT_PATH = "/home/sixth/images/"
     cmd = "libcamera-still -n -o " + OUTPUT_PATH + filename
@@ -54,19 +54,27 @@ def capture_thermal():
 
     # Set file name
     dt = datetime.now()
-    filename = str(dt)
+    filename = dt.strftime("%Y-%m-%d_%H-%M-%S") + "_IR"
     # Capture image
 
-    LEPTON_DATA_COLLECTOR_PATH = "external/lepton_data_collector/lepton_data_collector"
+    # Currently saving as RAW in the beta build
+    LEPTON_DATA_COLLECTOR_PATH = (
+        "sudo $HOME/CUSP/external/lepton_data_collector/lepton_data_collector"
+    )
     OUTPUT_PATH = "/home/sixth/images/"
     cmd = LEPTON_DATA_COLLECTOR_PATH + " -3 -c 1 -o" + OUTPUT_PATH + filename
 
     os.system(cmd)
+    cmd = "sudo chown sixth:sixth " + OUTPUT_PATH + filename + "000000.gray"
+    os.system(cmd)
 
+    """
     if write_metadata(OUTPUT_PATH + filename) == Error.NO_ERROR:
         return Error.NO_ERROR
+    """
 
-    return Error.CAPTURE_ERROR
+    # return Error.CAPTURE_ERROR
+    return Error.NO_ERROR
 
 
 def write_metadata(filename):

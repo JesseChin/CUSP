@@ -18,6 +18,7 @@ class Trigger_Timer:
     """
     When activated,
     """
+
     periodSeconds = 5
     active = False
     triggerMutex = Lock()
@@ -26,21 +27,23 @@ class Trigger_Timer:
         self.periodSeconds = seconds
 
     def set_frequency(self, Hz):
-        self.periodSeconds = 1/Hz
-    
-    def trigger_loop(self) :
+        self.periodSeconds = 1 / Hz
+
+    def trigger_loop(self):
         with self.triggerMutex:
             if self.active:
                 startTime = time.time()
                 capture_rgb()
-                # capture_thermal()
+                capture_thermal()
 
                 now = time.time()
                 waitTime = self.periodSeconds - (now - startTime)
-                print(f"took {round(now - startTime,1)}s. waiting {round(waitTime,1)}s for next capture")
-                if (waitTime < 0.1) :
+                print(
+                    f"took {round(now - startTime,1)}s. waiting {round(waitTime,1)}s for next capture"
+                )
+                if waitTime < 0.1:
                     waitTime = 0.1
-                sleep(waitTime-0.1)
+                sleep(waitTime - 0.1)
         sleep(0.1)
 
     def activate_trigger(self):

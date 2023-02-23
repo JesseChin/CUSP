@@ -29,8 +29,8 @@ def poll_GPS(periodSeconds, GPS):
         mock_latitude += 0.001
 
         GPS.set_mock_gps_data(mock_latitude, mock_longitude, mock_altitude)
+
         # might have to bump up frequency depending on how fast it's flying
-        
         sleep(periodSeconds)
 
 
@@ -59,7 +59,7 @@ def main():
     GPS_init()
     """
 
-    GPS_dev = GPSClass()
+    # GPS_dev = GPSClass()
 
     GPSprocess = Thread(target=poll_GPS, args=(0.1,GPS_dev,))
     GPSprocess.start()

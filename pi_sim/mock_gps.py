@@ -41,3 +41,5 @@ class GPSClass:
         retVal: Error code
         """
         return
+
+GPS_dev = GPSClass() # TODO move this out of global context, bad practice

@@ -1,1 +1,1 @@
-"{\"acmode\": \"Overlap\", \"along-track_overlap\": \"\", \"target_altitude\": \"\", \"target_altitude_tolerance\": \"\", \"mename\": \"Enabled\", \"rffname\": \"JPEG\", \"c1out\": \"JPEG\", \"c2out\": \"JPEG\", \"mcconfig\": \"RGB\", \"model_targets\": \"\"}"
+"{\"acmode\": \"Overlap\", \"along-track_overlap\": \"cat\", \"target_altitude\": \"\", \"target_altitude_tolerance\": \"\", \"mename\": \"Enabled\", \"rffname\": \"JPEG\", \"c1out\": \"JPEG\", \"c2out\": \"JPEG\", \"mcconfig\": \"RGB\", \"model_targets\": \"\"}"

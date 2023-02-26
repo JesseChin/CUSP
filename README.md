@@ -11,11 +11,9 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 ---
 ## Screenshots
 
-![screenshot_1](/docs/Screenshots/screenshot_1.png)
+![estimator_screenshot](/docs/Screenshots/estimator_screenshot.jpg)
 
-![screenshot_2](/docs/Screenshots/screenshot_2.png)
-
-![screenshot_3](/docs/Screenshots/screenshot_3.png)
+![config_screenshot](/docs/Screenshots/config_screenshot.jpg)
 
 ---
 ## Requirements
@@ -69,3 +67,33 @@ pip install Flask
 ```
 
 Now make sure the system is wired as shown in the [System Diagram](#System-Diagram), and you should be able to run our test scripts.
+
+## Usage
+
+to start the web server connect to the pi via SSH, navigate to the Web_App folder, and run the following command:
+
+```
+flask run --host=<ip_address>
+```
+
+where `<ip_address>` is replaced with the Pi's current ip address.
+
+Once this is running you will be able to access the web interface through any web browser (we tested both Chrome and Firefox) by typing `http://<ip_address>:5000` into the address bar, once again replacing `<ip_address>` with the Pi's current ip address.
+
+This whole process will hopefully be made much more user friendly in upcoming builds.
+
+At this point there are two useful tabs, both of which can be accessed with the icons on the navigation bar on the top of the screen.
+
+The first is the Pre-Flight Estimator. This tab allows the user to estimate the stats of a flight using already known variables. To learn the units of each variable, simply hover your mouse over it. When the user is ready they can select the large "Update Settings" button and they will either be greeted with an appropriate error message or the result of their flight.
+
+The next useful tab is the Configuration Menu. This is where the data is configured for the actual flight. Once this data is filled the user can select the "Save" button, at which point they will receive a notification containing an appropriate error message or "JSON Saved"
+
+[add section on if the ewb server crashes]
+
+To begin a flight navigate to the pi_sim folder and run the following command:
+
+```
+python3 main.py
+```
+
+In the future this will be done from the web interface or started automatically once the Pi receives power.

@@ -47,7 +47,15 @@ The `Web_App` folder contains all the files needed to host the web server on the
 
 The `docs` folder will contain any extra documentation as the project develops. For example, `gcs_test_msg.PNG` and `gcs_test_msg1.PNG` show that `mavlink_test.py` is functional.
 
-The `sim` folder contains all our files to help simualte a flight controller in flight so we do not need to actually fly a drone to develop new featues. [This README](sim/README.md) contains much more info.
+The `sim` folder contains all our files to help simualte a flight controller in flight so we do not need to actually fly a drone to develop new featues. Does not require running on hardware, can be fully simulated directly on a development machine. [This README](sim/README.md) contains much more info.
+
+The `pi_sim` folder contains a mocked implementation of the GPS module and supports SITL running directly on the Pi for simulating a flight without actually flying the drone. The camera capturing mode here is fully implemented. This is where most of our development occurs.
+
+### Persistent State
+
+Camera capturing configuration parameters are stored in `$HOME/Web_App/form_data.json`. This json file contains the parameters for target altitude, target altitude tolerance, capturing mode (trigger, overlap, PWM), and output modes (JPEG, TIFF). Upon startup of the main application (`main.py`), this json is read. In the event of power loss, the camera configuration data is still held.
+
+Images are saved into the `$HOME/images/` directory. Images are saved in the format YYYY_MM_DD_HH_MM_SS_{RGB, IR}. Currently, we are saving the IR images in RAW format for further radiometric processing.
 
 ---
 ## Setup
@@ -58,6 +66,20 @@ MAVProxy is a convenient way to test the connection of the Pi and flight control
 sudo apt-get install python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame
 pip3 install PyYAML mavproxy --user
 echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+```
+
+```
+sudo apt install libimage-exiftool-perl libcamera
+pip install PyExifTool
+```
+
+For autostarting the program:
+```
+sudo cp scripts/* /etc/systemd/system/
+sudo systemctl enable cusp-main.service
+sudo systemctl start cusp-main.service
+sudo systemctl enable cusp-web.service
+sudo systemctl start cusp-web.service
 ```
 
 After that, installing Flask is simple:
@@ -76,6 +98,8 @@ to start the web server connect to the pi via SSH, navigate to the Web_App folde
 flask run --host=<ip_address>
 ```
 
+Alternatively, the web server can also be called via `./scripts/run_webserver.sh`. This script automatically determines the ip of the pi.
+
 where `<ip_address>` is replaced with the Pi's current ip address.
 
 Once this is running you will be able to access the web interface through any web browser (we tested both Chrome and Firefox) by typing `http://<ip_address>:5000` into the address bar, once again replacing `<ip_address>` with the Pi's current ip address.
@@ -88,12 +112,16 @@ The first is the Pre-Flight Estimator. This tab allows the user to estimate the 
 
 The next useful tab is the Configuration Menu. This is where the data is configured for the actual flight. Once this data is filled the user can select the "Save" button, at which point they will receive a notification containing an appropriate error message or "JSON Saved"
 
-[add section on if the web server crashes]
+We are using systemd services to run CUSP as a background process. Systemd supports automatically starting programs upon an operating system hook (i.e., network daemon activated) and restarting when an error occurs. If the systemd services are active, the main program and webserver should launch automatically on startup. Upon crash of either program, systemd should wait 5 seconds and auto-restart the service.
 
-To begin a flight navigate to the pi_sim folder and run the following command:
+### Manual flight with pi_sim
+pi_sim requires a connection to SITL. Because DroneKit-SITL does not have ARM builds, ardupilot SITL must be built manually using the [ArduPilot Building Guide](https://github.com/ArduPilot/ardupilot/blob/master/BUILD.md).
+
+To begin a flight simulation, run the steps in [the sim README](sim/README.md).
+After launching SITL, navigate to the pi_sim folder and run the following command:
 
 ```
 python3 main.py
 ```
 
-In the future this will be done from the web interface or started automatically once the Pi receives power.
+Now, images will be automatically captured dependent on the camera configuration. For example, if trigger capturing mode is enabled with a period of 10s, RGB and IR images will be captured every 10 seconds.

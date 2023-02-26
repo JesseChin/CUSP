@@ -33,10 +33,10 @@ def capture_rgb():
     cmd = "libcamera-still -n -o " + OUTPUT_PATH + filename
 
     os.system(cmd)
-    mock_latitude: float = 29.65
-    mock_longitude: float = -82.30
-    mock_altitude: float = 30.0
-    GPS_dev.set_mock_gps_data(mock_latitude, mock_longitude, mock_altitude)
+    # mock_latitude: float = 29.65
+    # mock_longitude: float = -82.30
+    # mock_altitude: float = 30.0
+    # GPS_dev.set_mock_gps_data(mock_latitude, mock_longitude, mock_altitude)
 
     if write_metadata(OUTPUT_PATH + filename) == Error.NO_ERROR:
         return Error.NO_ERROR

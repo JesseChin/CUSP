@@ -11,7 +11,7 @@ Group=sixth
 SuccessExitStatus=0 1 255
 KillMode=none
 
-ExecStart=/usr/bin/flask run
+ExecStart=/usr/bin/flask run --host=$(ifconfig eth0 | awk '/inet /{print $2}' | cut -f2 -d':')
 Restart=always
 RestartSec=5
 

@@ -88,7 +88,7 @@ The first is the Pre-Flight Estimator. This tab allows the user to estimate the 
 
 The next useful tab is the Configuration Menu. This is where the data is configured for the actual flight. Once this data is filled the user can select the "Save" button, at which point they will receive a notification containing an appropriate error message or "JSON Saved"
 
-[add section on if the ewb server crashes]
+[add section on if the web server crashes]
 
 To begin a flight navigate to the pi_sim folder and run the following command:
 

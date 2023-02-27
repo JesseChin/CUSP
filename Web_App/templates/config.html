@@ -52,21 +52,21 @@
                 </label>
             </div>
             <div class="form-row">
-                <label for="along-track_overlap" title="Sideways Overlap Integer Percentage Value">
+                <label for="along-track_overlap" title="Sideways Overlap (%))">
                     <span>Along-Track Overlap</span>
-                    <input name="along-track_overlap" type="text">
+                    <input name="along-track_overlap" type="number" required>
                 </label>
             </div>
             <div class="form-row">
-                <label for="target_altitude">
+                <label for="target_altitude" title="(meters)">
                     <span>Target Altitude</span>
-                    <input name="target_altitude" type="text">
+                    <input name="target_altitude" type="number" required>
                 </label>
             </div>
             <div class="form-row">
-                <label for="target_altitude_tolerance" title="Amount of leeway provided for images to trigger.">
+                <label for="target_altitude_tolerance" title="Amount of leeway provided for images to trigger (meters).">
                     <span>Target Altitude Tolerance</span>
-                    <input name="target_altitude_tolerance" type="text">
+                    <input name="target_altitude_tolerance" type="number" required>
                 </label>
             </div>
             <div class="form-row">
@@ -139,8 +139,5 @@
         </div>
 
     </form>
-
-    
-
 {% endblock %}
 

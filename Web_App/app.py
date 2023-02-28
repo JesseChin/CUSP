@@ -17,7 +17,8 @@ def home_page():
 
 @app.route('/settings')
 def settings_page():
-    return render_template('settings.html', active_page='settings_page')
+    form_data = {}
+    return render_template('settings.html', form_data=form_data, active_page='settings_page')
 
 @app.route('/getImage')
 def get_img():
@@ -25,7 +26,8 @@ def get_img():
 
 @app.route('/configuration')
 def config_page():
-    return render_template('config.html', active_page='config_page')
+    form_data = {}
+    return render_template('config.html', form_data=form_data, active_page='config_page')
 
 @app.route('/save', methods=['POST'])
 def save_json():
@@ -33,12 +35,13 @@ def save_json():
     data = json.dumps(form_data)
     with open('form_data.json', 'w') as outfile:
         json.dump(data, outfile)
-    return render_template('config.html', show_alert=True, active_page='config_page')
+    form_data = form_data.to_dict()
+    return render_template('config.html', form_data=form_data, show_alert=True, active_page='config_page')
 
 @app.route('/calculate', methods=['GET', 'POST'])
 def calculate():
     width = None
-
+    form_data = request.form.to_dict()
     if request.method == 'POST':
         try:
             Altitude = int(request.form['alt'])
@@ -76,4 +79,4 @@ def calculate():
         Area_per_Hour = str(round(Area_per_Hour, 2)) + " m^2/H"
         Storage_Space_Requirement = str(round(Storage_Space_Requirement, 2)) + " MB"
 
-    return render_template('settings.html', width=Footprint_Width, height=Footprint_Height, disBetCap=Distance_Between_Capture, disBetTrack=Distance_Between_Track, tBetCap=Time_Between_Capture, flightTime=Flight_Time, numCap=Number_of_Captures, numImg=Number_of_Images, areaPerHour=Area_per_Hour, ssr=Storage_Space_Requirement, active_page='settings_page')
+    return render_template('settings.html', form_data=form_data, width=Footprint_Width, height=Footprint_Height, disBetCap=Distance_Between_Capture, disBetTrack=Distance_Between_Track, tBetCap=Time_Between_Capture, flightTime=Flight_Time, numCap=Number_of_Captures, numImg=Number_of_Images, areaPerHour=Area_per_Hour, ssr=Storage_Space_Requirement, active_page='settings_page')

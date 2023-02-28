@@ -44,37 +44,37 @@
             <div class="form-row">
                 <label for="acm">
                     <span>Auto-Capture Mode:</span>
-                    <select id="acmsel" name="acmode">
-                        <option value="Overlap">Overlap</option>
-                        <option value="PWM">PWM</option>
-                        <option value="Periodic">Periodic</option>
+                    <select id="acmsel" name="acmode" >
+                        <option value="Overlap" {% if form_data.get('acmode') == 'Overlap' %}selected{% endif %}>Overlap</option>
+                        <option value="PWM" {% if form_data.get('acmode') == 'PWM' %}selected{% endif %}>PWM</option>
+                        <option value="Periodic" {% if form_data.get('acmode') == 'Periodic' %}selected{% endif %}>Periodic</option>
                     </select>
                 </label>
             </div>
             <div class="form-row">
                 <label for="along-track_overlap" title="Sideways Overlap (%))">
                     <span>Along-Track Overlap</span>
-                    <input name="along-track_overlap" type="number" required>
+                    <input name="along-track_overlap" type="number" required value="{{ form_data.get('along-track_overlap', '') }}">
                 </label>
             </div>
             <div class="form-row">
                 <label for="target_altitude" title="(meters)">
                     <span>Target Altitude</span>
-                    <input name="target_altitude" type="number" required>
+                    <input name="target_altitude" type="number" required value="{{ form_data.get('target_altitude', '') }}">
                 </label>
             </div>
             <div class="form-row">
                 <label for="target_altitude_tolerance" title="Amount of leeway provided for images to trigger (meters).">
                     <span>Target Altitude Tolerance</span>
-                    <input name="target_altitude_tolerance" type="number" required>
+                    <input name="target_altitude_tolerance" type="number" required value="{{ form_data.get('target_altitude_tolerance', '') }}">
                 </label>
             </div>
             <div class="form-row">
                 <label for="mename">
                     <span>Manual Exposure</span>
                     <select id="mesel" name="mename">
-                        <option value="Enabled">Enabled</option>
-                        <option value="Disabled">Disabled</option>
+                        <option value="Enabled" {% if form_data.get('mename') == 'Enabled' %}selected{% endif %}>Enabled</option>
+                        <option value="Disabled" {% if form_data.get('mename') == 'Disabled' %}selected{% endif %}>Disabled</option>
                     </select>
                 </label>
             </div>
@@ -86,8 +86,8 @@
                     <label for="rffsel" title="Choose output format for RAW files.">
                         <span>RAW File Format</span>
                         <select id="rffsel" name="rffname">
-                            <option value="JPEG">JPEG</option>
-                            <option value="TIFF">TIFF</option>
+                            <option value="JPEG" {% if form_data.get('rffname') == 'JPEG' %}selected{% endif %}>JPEG</option>
+                            <option value="TIFF" {% if form_data.get('rffname') == 'TIFF' %}selected{% endif %}>TIFF</option>
                         </select>
                     </label>
                 </div>
@@ -98,8 +98,8 @@
                     <label for="cam1">
                         <span>Camera 1</span>
                         <select id="cam1" name="c1out">
-                            <option value="JPEG">JPEG</option>
-                            <option value="TIFF">TIFF</option>
+                            <option value="JPEG" {% if form_data.get('c1out') == 'JPEG' %}selected{% endif %}>JPEG</option>
+                            <option value="TIFF" {% if form_data.get('c1out') == 'TIFF' %}selected{% endif %}>TIFF</option>
                         </select>
                     </label>
                 </div>
@@ -107,8 +107,8 @@
                     <label for="cam2">
                         <span>Camera 2</span>
                         <select id="cam2" name="c2out">
-                            <option value="JPEG">JPEG</option>
-                            <option value="TIFF">TIFF</option>
+                            <option value="JPEG" {% if form_data.get('c2out') == 'JPEG' %}selected{% endif %}>JPEG</option>
+                            <option value="TIFF" {% if form_data.get('c2out') == 'TIFF' %}selected{% endif %}>TIFF</option>
                         </select>
                     </label>
                 </div>
@@ -116,9 +116,9 @@
                     <label for="mcconfig" title="Select which cameras to be enabled.">
                         <span>Multi-Camera Configuration</span>
                         <select id="mcsel" name="mcconfig">
-                            <option value="RGB">RGB</option>
-                            <option value="Thermal">Thermal</option>
-                            <option value="Both">Both</option>
+                            <option value="RGB" {% if form_data.get('mcconfig') == 'RGB' %}selected{% endif %}>RGB</option>
+                            <option value="Thermal" {% if form_data.get('mcconfig') == 'Thermal' %}selected{% endif %}>Thermal</option>
+                            <option value="Both" {% if form_data.get('mcconfig') == 'Both' %}selected{% endif %}>Both</option>
                         </select>
                     </label>
                 </div>
@@ -128,7 +128,7 @@
             <div class="form-row">
                 <label for="model_targets" title="Target classes for the machine learning model.">
                     <span>Model Targets</span>
-                    <input name="model_targets" type="text">
+                    <input name="model_targets" type="text" value="{{ form_data.get('model_targets', '') }}">
                 </label>
             </div>
         </div>

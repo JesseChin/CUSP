@@ -43,27 +43,27 @@
             <div class="form-row form-input-name-row">
                 <label for="alt" title="Altitude Above Ground Level (meters)">
                     <span>Altitude AGL</span>
-                    <input name="alt" type="number" required>
+                    <input name="alt" type="number" required value="{{ form_data.get('alt', '') }}">
                 </label>
             </div>
             <div class="form-row form-input-name-row">
                 <label for="fs" title="(meters per second)">
                     <span>Flight Speed</span>
-                    <input name="fs" type="number" required>
+                    <input name="fs" type="number" required value="{{ form_data.get('fs', '') }}">
                 </label>
             </div>
             <div class="form-row form-input-name-row">
                 <label for="fo" title="(%)">
                     <span>Forward Overlap</span>
-                    <input name="fo" type="number" required>
+                    <input name="fo" type="number" required value="{{ form_data.get('fo', '') }}">
                 </label>
             </div>
             <div class="form-row form-input-name-row">
                 <label for="corientsel">
                     <span>Camera Orientation</span>
                     <select id="corientsel" name="corientname">
-                        <option value="Landscape">Landscape</option>
-                        <option value="Portrait">Portrait</option>
+                        <option value="Landscape"  {% if form_data.get('corientname') == 'Landscape' %}selected{% endif %}>Landscape</option>
+                        <option value="Portrait"  {% if form_data.get('corientname') == 'Portrait' %}selected{% endif %}>Portrait</option>
                     </select>
                 </label>
             </div>
@@ -73,27 +73,27 @@
                 <div class="form-row form-input-name-row">
                     <label for="GSD" title="Ground Sampling Distance (centimeter per pixel))">
                         <span>GSD</span>
-                        <input name="gsd" type="number" required>
+                        <input name="gsd" type="number" required value="{{ form_data.get('gsd', '') }}">
                     </label>
                 </div>
                 <div class="form-row form-input-name-row">
                     <label for="area" title="(acres)">
                         <span>Area of the Field</span>
-                        <input name="area" type="number" required>
+                        <input name="area" type="number" required value="{{ form_data.get('area', '') }}">
                     </label>
                 </div>
                 <div class="form-row form-input-name-row">
                     <label for="co" title="(%)">
                         <span>Cross Overlap</span>
-                        <input name="co" type="number" required>
+                        <input name="co" type="number" required value="{{ form_data.get('co', '') }}">
                     </label>
                 </div>
                 <div class="form-row form-input-name-row">
                     <label for="iosel" title="Choose output format.">
                         <span>Image Output</span>
                         <select id="iosel" name="ioname">
-                            <option value="JPEG">JPEG</option>
-                            <option value="TIFF">TIFF</option>
+                            <option value="JPEG"  {% if form_data.get('ioname') == 'JPEG' %}selected{% endif %}>JPEG</option>
+                            <option value="TIFF"  {% if form_data.get('ioname') == 'TIFF' %}selected{% endif %}>TIFF</option>
                         </select>
                     </label>
                 </div>

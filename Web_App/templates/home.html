@@ -27,6 +27,47 @@
         </ul>
       </nav>
     </header>
+    <center><h2>(Live) Status</h2></center>
+    <center>
+      <table>
+        <tr>
+            <td>Storage</td>
+            <td>{{ storage }} of 29.7 GB Free</td>
+        </tr>
+        <tr>
+            <td>GPS Sats</td>
+            <td>{{ sats }} Used / 12 Visible</td>
+        </tr>
+        <tr>
+            <td>Dls Connected</td>
+            <td>{{ connected }}</td>
+        </tr>
+        <tr>
+            <td>Time</td>
+            <td>{{ time }}</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td>{{ location }}</td>
+        </tr>
+        <tr>
+          <td>Altitude</td>
+          <td>{{ altitude }} m</td>
+        </tr>
+        <tr>
+            <td>Speed</td>
+            <td>{{ speed }} m/s</td>
+        </tr>
+        <tr>
+            <td>Heading</td>
+            <td>{{ heading }} &#176</td>
+        </tr>
+        <tr>
+          <td>Capture Config</td>
+          <td>{{ config }}</td>
+        </tr>
+      </table>
+    </center>
     <center><button type='button' id ='retrieve'>Display</button></center>
     <center><img src="" id="myimg" width = 800 height = 600/></center>
    </body>

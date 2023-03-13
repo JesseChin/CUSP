@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request
+from datetime import datetime
 import json
 import math
-#from cv2 import *
 import time
+import live_status
 
 LEPTON_HFOV = 45.6
 LEPTON_VFOV = 34.2
@@ -12,8 +13,19 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/home')
 def home_page():
-    # insert live view code
-    return render_template('home.html', active_page='home_page')
+    isConnected = live_status.connected()
+    if isConnected == True:
+        storage = live_status.storage()
+        sats = live_status.other()
+        time = datetime.now()
+        location = live_status.other()
+        altitude = live_status.other()
+        speed = live_status.other()
+        heading = live_status.other()
+        config = live_status.other()
+        return render_template('home.html', active_page='home_page', storage=storage, sats=sats, connected=isConnected, time=time, location=location, altitude=altitude, speed=speed, heading=heading, config=config)
+    else:
+        return render_template('home.html', active_page='home_page', storage="", sats="", connected=isConnected, time="", location="", altitude="", speed="", heading="", config="")
 
 @app.route('/settings')
 def settings_page():

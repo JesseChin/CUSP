@@ -1,0 +1,5 @@
+DRC Rules Export File for PCB: F:\_UF Spring 2023\CEN3908C - Design 2\PCB_Project\CUSP_PI_Hat.PcbDoc
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=7.87
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=3.94
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00

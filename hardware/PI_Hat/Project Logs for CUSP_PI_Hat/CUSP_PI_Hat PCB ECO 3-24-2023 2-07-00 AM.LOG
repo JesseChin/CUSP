@@ -1,0 +1,13 @@
+Change Component Designator: OldDesignator=J? NewDesignator=J1
+Change Component Designator: OldDesignator=J? NewDesignator=J2
+Change Net Name : Old Net Name=NetJ?_2 New Net Name=NetJ2_2
+Change Net Name : Old Net Name=NetJ?_3 New Net Name=NetJ1_3
+Change Net Name : Old Net Name=NetJ?_4 New Net Name=NetJ1_4
+Change Net Name : Old Net Name=NetJ?_7 New Net Name=NetJ1_7
+Change Net Name : Old Net Name=NetJ?_8 New Net Name=NetJ1_8
+Change Net Name : Old Net Name=NetJ?_9 New Net Name=NetJ1_9
+Change Net Name : Old Net Name=NetJ?_10 New Net Name=NetJ1_10
+Added Pin To Net: NetName=NetJ2_3 Pin=J2-3
+Added Pin To Net: NetName=NetJ2_3 Pin=RPI1-8
+Added Net: Name=NetJ2_3
+Added Member To Class: ClassName=CUSP_PI_Hat Member=Component J2 SM04B-GHS-TB(LF)(SN)

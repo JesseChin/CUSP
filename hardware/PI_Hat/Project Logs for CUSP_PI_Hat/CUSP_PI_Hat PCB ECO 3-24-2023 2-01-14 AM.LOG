@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=GND Pin=J?-1
+Removed Pin From Net: NetName=+3V3 Pin=J?-4
+Removed Pin From Net: NetName=NetJ?_2 Pin=RPI1-8
+Added Pin To Net: NetName=GND Pin=J?-4
+Added Pin To Net: NetName=NetJ?_2 Pin=RPI1-10
+Add Net: Net with name "NetJ?_3" already exists
+Added Member To Class: ClassName=CUSP_PI_Hat Member=Component J? 503480-1000

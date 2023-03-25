@@ -19,10 +19,15 @@ CUSP is a unique low cost and lightweight product that provides on-board Machine
 ## Requirements
 
 ### Hardware
-- Raspberry Pi 3/4 or Jetson Nano (todo)
+- Raspberry Pi 3/4
 - MAVLink Capable Flight Controller
 - 15-pin Raspberry Pi Compatible Camera
 - FLIR Lepton Thermal Imaging Sensor
+- CUSP Pi Hat
+- 3D printed Chassis
+- 4x M2.5x20 screws
+- 9x M2.5x6 screws
+- 4x M2x6 screws
 
 ### Software
 - Python 3.9.2+

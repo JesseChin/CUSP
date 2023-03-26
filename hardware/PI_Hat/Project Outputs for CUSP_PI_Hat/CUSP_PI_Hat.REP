@@ -2,121 +2,54 @@
 FileName = CUSP_PI_Hat.GBR
 AutoAperture = True
 *************************************************************
-Generating : Top Component Center
-      File : CUSP_PI_Hat.GM16
+Generating : Top Pad Master
+      File : CUSP_PI_Hat.GPT
 
-    Adding Layer      : Top Component Center
-
-
-Used DCodes :
-    D30
-*************************************************************
-
-*************************************************************
-Generating : Mechanical 15
-      File : CUSP_PI_Hat.GM15
-
-    Adding Layer      : Mechanical 15
-
-
-Used DCodes :
-    D30
-    D31
-*************************************************************
-
-*************************************************************
-Generating : Mechanical 13
-      File : CUSP_PI_Hat.GM13
-
-    Adding Layer      : Mechanical 13
-
-
-Used DCodes :
-    D30
-*************************************************************
-
-*************************************************************
-Generating : Top Assembly
-      File : CUSP_PI_Hat.GM5
-
-    Adding Layer      : Top Assembly
-
-
-Used DCodes :
-    D11
-*************************************************************
-
-*************************************************************
-Generating : Top Courtyard
-      File : CUSP_PI_Hat.GM4
-
-    Adding Layer      : Top Courtyard
-
-
-Used DCodes :
-    D11
-*************************************************************
-
-*************************************************************
-Generating : Top 3D Body
-      File : CUSP_PI_Hat.GM3
-
-    Adding Layer      : Top 3D Body
-
-
-Used DCodes :
-    D11
-*************************************************************
-
-*************************************************************
-Generating : M2: Outline
-      File : CUSP_PI_Hat.GM2
-
-    Adding Layer      : M2: Outline
-
-
-Used DCodes :
-    D13
-*************************************************************
-
-*************************************************************
-Generating : Mechanical 1
-      File : CUSP_PI_Hat.GM1
-
-    Adding Layer      : Mechanical 1
-
-
-Used DCodes :
-*************************************************************
-
-*************************************************************
-Generating : Bottom Overlay
-      File : CUSP_PI_Hat.GBO
-
-    Adding Layer      : Bottom Overlay
-
-
-Used DCodes :
-    D11
-    D29
-*************************************************************
-
-*************************************************************
-Generating : Bottom Solder
-      File : CUSP_PI_Hat.GBS
-
-    Adding Layer      : Bottom Solder
-
-    Adding Layer      : Bottom Layer
+    Adding Layer      : Top Layer
 
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
-    D20
-    D21
-    D22
-    D23
+    D14
+    D15
+    D16
+    D17
+    D24
+    D25
+    D26
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : CUSP_PI_Hat.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : CUSP_PI_Hat.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D14
+    D15
+    D16
+    D17
 *************************************************************
 
 *************************************************************
@@ -142,54 +75,52 @@ Used DCodes :
 *************************************************************
 
 *************************************************************
-Generating : Top Paste
-      File : CUSP_PI_Hat.GTP
+Generating : Bottom Solder
+      File : CUSP_PI_Hat.GBS
 
-    Adding Layer      : Top Paste
+    Adding Layer      : Bottom Solder
 
-    Adding Layer      : Top Layer
+    Adding Layer      : Bottom Layer
 
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
-    D14
-    D15
-    D16
-    D17
+    D20
+    D21
+    D22
+    D23
 *************************************************************
 
 *************************************************************
-Generating : Top Overlay
-      File : CUSP_PI_Hat.GTO
+Generating : Bottom Overlay
+      File : CUSP_PI_Hat.GBO
 
-    Adding Layer      : Top Overlay
+    Adding Layer      : Bottom Overlay
 
 
 Used DCodes :
-    D10
     D11
-    D12
-    D13
 *************************************************************
 
 *************************************************************
-Generating : Top Pad Master
-      File : CUSP_PI_Hat.GPT
+Generating : Keep-Out Layer
+      File : CUSP_PI_Hat.GKO
 
-    Adding Layer      : Top Layer
-
-    Adding Layer      : Multi-Layer
+    Adding Layer      : Keep-Out Layer
 
 
 Used DCodes :
-    D14
-    D15
-    D16
-    D17
-    D24
-    D25
-    D26
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : CUSP_PI_Hat.GM1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
 *************************************************************
 
 *************************************************************
@@ -205,6 +136,62 @@ Used DCodes :
     D24
     D25
     D26
+*************************************************************
+
+*************************************************************
+Generating : M2: Outline
+      File : CUSP_PI_Hat.GM2
+
+    Adding Layer      : M2: Outline
+
+
+Used DCodes :
+    D13
+*************************************************************
+
+*************************************************************
+Generating : Top 3D Body
+      File : CUSP_PI_Hat.GM3
+
+    Adding Layer      : Top 3D Body
+
+
+Used DCodes :
+    D11
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 13
+      File : CUSP_PI_Hat.GM13
+
+    Adding Layer      : Mechanical 13
+
+
+Used DCodes :
+    D29
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 15
+      File : CUSP_PI_Hat.GM15
+
+    Adding Layer      : Mechanical 15
+
+
+Used DCodes :
+    D29
+    D30
+*************************************************************
+
+*************************************************************
+Generating : Top Component Center
+      File : CUSP_PI_Hat.GM16
+
+    Adding Layer      : Top Component Center
+
+
+Used DCodes :
+    D29
 *************************************************************
 
 *************************************************************
@@ -237,7 +224,6 @@ Generating : Top Layer
 
 Used DCodes :
     D11
-    D13
     D14
     D15
     D16
@@ -246,6 +232,28 @@ Used DCodes :
     D25
     D26
     D27
+*************************************************************
+
+*************************************************************
+Generating : Top Courtyard
+      File : CUSP_PI_Hat.GM4
+
+    Adding Layer      : Top Courtyard
+
+
+Used DCodes :
+    D11
+*************************************************************
+
+*************************************************************
+Generating : Top Assembly
+      File : CUSP_PI_Hat.GM5
+
+    Adding Layer      : Top Assembly
+
+
+Used DCodes :
+    D11
 *************************************************************
 
 *************************************************************
@@ -258,7 +266,7 @@ Generating : Drill Drawing
 
 
 Used DCodes :
+    D31
     D32
-    D33
 *************************************************************
 

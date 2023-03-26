@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
-PCB File : F:\_UF Spring 2023\CEN3908C - Design 2\PCB_Project\CUSP_PI_Hat.PcbDoc
-Date     : 3/24/2023
-Time     : 4:20:37 AM
+PCB File : F:\_UF Spring 2023\CEN3908C - Design 2\CUSP\hardware\PI_Hat\CUSP_PI_Hat.PcbDoc
+Date     : 3/26/2023
+Time     : 6:32:43 PM
 
 Processing Rule : Clearance Constraint (Gap=0.2mm) (All),(All)
 Rule Violations :0
@@ -39,7 +39,7 @@ Rule Violations :0
 Processing Rule : Net Antennae (Tolerance=0mm) (All)
 Rule Violations :0
 
-Processing Rule : Room CUSP_PI_Hat (Bounding Region = (16mm, 55.75mm, 82mm, 72.75mm) (InComponentClass('CUSP_PI_Hat'))
+Processing Rule : Room CUSP_PI_Hat (Bounding Region = (16mm, 55.75mm, 81.75mm, 72.75mm) (InComponentClass('CUSP_PI_Hat'))
 Rule Violations :0
 
 Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)

@@ -18,15 +18,18 @@ end box
 Capture -> Capture : path, status = capture_{RGB, IR}
 note over Capture : string catpure_msg = path
 Capture -> Handler : capture_msg
-Handler -> PyTorch : image path
-PyTorch --> Handler : probabilities, bounding box
-Handler --> Handler : struct ml_metadata = {.probabilities, .bounding_box}
-Handler --> Capture :ml_metadata
+Handler -> PyTorch : image_path
+note over PyTorch : struct ml_metadata = {\nfloat lat,\nfloat long,\nfloat radius,\nfloat probabilities}
+PyTorch -> PyTorch : ml_metadata detections[] = process_image()
+PyTorch --> Handler : detections[]
+Handler --> Capture : detections[]
 note over Capture : GPS center lat/long,\nbounding box radius,\nprobability
-Capture -> Capture : string gcs_msg = format_metadata(GPS_metadata, ml_metadata)
 
-
-MAVLink -> Mapper : master.mav.statustext_send(mavutil.mavlink.MAV_SEVERITY_INFO, gcs_msg.encode())
+loop for i in detections[]
+    Capture -> Capture : string gcs_msg = format_metadata(GPS_metadata, ml_metadata[i])
+    MAVLink -> Mapper : master.mav.statustext_send(mavutil.mavlink.MAV_SEVERITY_INFO, gcs_msg.encode()) 
+    end
+Mapper -> Mapper : buffer[] += decode_msg()
+Mapper -> Mapper : process_cluster()
 Mapper -> "Ground Station" : display_bounding_box()
-
 @enduml

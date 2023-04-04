@@ -6,8 +6,8 @@ import os
 from datetime import datetime
 import stat
 from exiftool import ExifToolHelper
-from datetime import datetime
 from mock_gps import *
+from picamera2 import Picamera2
 
 
 def device_exists(path):
@@ -15,6 +15,10 @@ def device_exists(path):
         return stat.S_ISBLK(os.stat(path).st_mode)
     except:
         return False
+
+
+picam2 = Picamera2()
+picam2.start()
 
 
 def capture_rgb():
@@ -30,13 +34,8 @@ def capture_rgb():
     filename = dt.strftime("%Y-%m-%d_%H-%M-%S") + "_RGB.jpg"
     # Capture image
     OUTPUT_PATH = "/home/sixth/images/"
-    cmd = "libcamera-still -n -o " + OUTPUT_PATH + filename
-
-    os.system(cmd)
-    # mock_latitude: float = 29.65
-    # mock_longitude: float = -82.30
-    # mock_altitude: float = 30.0
-    # GPS_dev.set_mock_gps_data(mock_latitude, mock_longitude, mock_altitude)
+    metadata = picam2.capture_file(OUTPUT_PATH + filename)
+    print(metadata)
 
     if write_metadata(OUTPUT_PATH + filename) == Error.NO_ERROR:
         return Error.NO_ERROR

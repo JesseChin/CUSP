@@ -1,0 +1,91 @@
+Added Component: Designator=J1_R(MOLX-503480-1000)
+Add component (AddParameter): Name = "Circuits (Loaded)"; Value = "10"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer URL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.molex.com/molex/index.jsp"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://www.molex.com/webdocs/datasheets/pdf/en-us/5034801000_FFC_FPC_CONNECTORS.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink3Description"; Value = "Package Specification"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink3URL"; Value = "http://www.molex.com/pdm_docs/sd/5034801000_sd.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Position"; Value = "Dual"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current (Max per Contact)"; Value = "0.5A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Durability (mating cycles max)"; Value = "10"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Entry Angle"; Value = "90degrees Angle"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Molex"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mated Height"; Value = "1.00mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Material - Metal"; Value = "Phosphor Bronze"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Material - Plating Mating"; Value = "Gold"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Material - Plating Termination"; Value = "Gold, Tin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Technology"; Value = "Surface Mount"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Rows"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Orientation"; Value = "Right Angle"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "10-Lead FPC Connector, Pitch 0.5 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "503480-1000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageVersion"; Value = "Rev. F, 09/2012"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packing"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PartNumber"; Value = "503480-1000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PCB Locator"; Value = "No"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PCB Retention"; Value = "Yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch - Mating Interface"; Value = "0.50mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Polarized to PCB"; Value = "Yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHS"; Value = "TRUE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Stackable"; Value = "No"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage (Max)"; Value = "50V AC (RMS)/DC"; VariantName = "[No Variations]"
+Added Component: Designator=J2_R(FP-SM04B-GHS-TB_LF_SN-MFG)
+Add component (AddParameter): Name = "Contact Material"; Value = "Bronze"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Plating"; Value = "Tin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Rating"; Value = "1A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Housing Color"; Value = "Natural"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Housing Material"; Value = "Nylon"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lead Free"; Value = "Lead Free"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mount"; Value = "Surface Mount"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Contacts"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Positions"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Rows"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Orientation"; Value = "Right Angle"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Cut Tape"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch"; Value = "1.25mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "REACH SVHC"; Value = "No SVHC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Series"; Value = "GH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "Solder"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "50V"; VariantName = "[No Variations]"
+Added Component: Designator=J3_R(FP-SM04B-GHS-TB_LF_SN-MFG)
+Add component (AddParameter): Name = "Contact Material"; Value = "Bronze"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Plating"; Value = "Tin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Rating"; Value = "1A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Housing Color"; Value = "Natural"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Housing Material"; Value = "Nylon"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lead Free"; Value = "Lead Free"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mount"; Value = "Surface Mount"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Contacts"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Positions"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Rows"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Orientation"; Value = "Right Angle"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Cut Tape"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch"; Value = "1.25mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "REACH SVHC"; Value = "No SVHC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Series"; Value = "GH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Termination"; Value = "Solder"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "50V"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetJ1_10 Pin=J1_R-1
+Added Pin To Net: NetName=NetJ1_9 Pin=J1_R-2
+Added Pin To Net: NetName=NetJ1_8 Pin=J1_R-3
+Added Pin To Net: NetName=NetJ1_7 Pin=J1_R-4
+Added Pin To Net: NetName=GND Pin=J1_R-5
+Added Pin To Net: NetName=GND Pin=J1_R-6
+Added Pin To Net: NetName=NetJ1_4 Pin=J1_R-7
+Added Pin To Net: NetName=NetJ1_3 Pin=J1_R-8
+Added Pin To Net: NetName=+3V3 Pin=J1_R-9
+Added Pin To Net: NetName=+3V3 Pin=J1_R-10
+Added Pin To Net: NetName=GND Pin=J2_R-1
+Added Pin To Net: NetName=NetJ2_3 Pin=J2_R-2
+Added Pin To Net: NetName=NetJ2_2 Pin=J2_R-3
+Added Pin To Net: NetName=NetJ1_4 Pin=J3_R-1
+Added Pin To Net: NetName=NetJ1_3 Pin=J3_R-2
+Added Pin To Net: NetName=+3V3 Pin=J3_R-3
+Added Pin To Net: NetName=GND Pin=J3_R-4
+Added Pin To Net: NetName=NetJ2_1 Pin=J2-1
+Added Pin To Net: NetName=NetJ2_1 Pin=J2_R-4
+Added Net: Name=NetJ2_1
+Added Member To Class: ClassName=CUSP_PI_Hat Member=Component J1_R 503480-1000
+Added Member To Class: ClassName=CUSP_PI_Hat Member=Component J2_R SM04B-GHS-TB(LF)(SN)
+Added Member To Class: ClassName=CUSP_PI_Hat Member=Component J3_R SM04B-GHS-TB(LF)(SN)

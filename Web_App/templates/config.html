@@ -13,6 +13,14 @@
 </script>
 {% endif %}
 
+{% if model_uploaded %}
+<script>
+  window.onload = function() {
+    alert("Model Uploaded.");
+  };
+</script>
+{% endif %}
+
     <style>
         .sub-entry {
             width: 49%;
@@ -139,5 +147,12 @@
         </div>
 
     </form>
+    <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {{ form.photo.label }}
+        {{ form.photo }}
+        <button type="submit">Upload</button>
+    </form>
+
 {% endblock %}
 

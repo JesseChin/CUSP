@@ -1,4 +1,7 @@
 from flask import Flask, render_template, request
+from flask_wtf import FlaskForm
+from flask_uploads import UploadSet, configure_uploads, IMAGES
+from flask_wtf.file import FileField, FileRequired
 import json
 import math
 #from cv2 import *
@@ -8,6 +11,15 @@ LEPTON_HFOV = 45.6
 LEPTON_VFOV = 34.2
 
 app = Flask(__name__)
+app.secret_key = '0123456789'
+
+photos = UploadSet('photos', IMAGES)
+app.config['UPLOADED_PHOTOS_DEST'] = 'static/models'
+photos.extensions = ('pdf', 'pptx',)
+configure_uploads(app, photos)
+
+class UploadForm(FlaskForm):
+    photo = FileField('ML Model:', validators=[FileRequired()])
 
 @app.route('/')
 @app.route('/home')
@@ -26,8 +38,9 @@ def get_img():
 
 @app.route('/configuration')
 def config_page():
+    form = UploadForm()
     form_data = {}
-    return render_template('config.html', form_data=form_data, active_page='config_page')
+    return render_template('config.html', form=form, form_data=form_data, active_page='config_page')
 
 @app.route('/save', methods=['POST'])
 def save_json():
@@ -37,6 +50,15 @@ def save_json():
         json.dump(data, outfile)
     form_data = form_data.to_dict()
     return render_template('config.html', form_data=form_data, show_alert=True, active_page='config_page')
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    form = UploadForm()
+    form_data = {}
+    if request.method == 'POST' and form.validate():
+        filename = photos.save(request.files['photo'])
+        return render_template('config.html', form=form, model_uploaded=True, form_data=form_data, active_page='config_page')
+    return render_template('config.html', form=form, form_data=form_data, active_page='config_page')
 
 @app.route('/calculate', methods=['GET', 'POST'])
 def calculate():

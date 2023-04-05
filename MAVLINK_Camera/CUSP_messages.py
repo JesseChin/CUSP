@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Unused, remove soon
+
 
 import time
 from pymavlink import mavutil

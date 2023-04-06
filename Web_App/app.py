@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, send_file, request
 from flask_wtf import FlaskForm
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_wtf.file import FileField, FileRequired
 from datetime import datetime
+import os
+import zipfile
 import json
 import math
 import time
@@ -56,12 +58,13 @@ def config_page():
 
 @app.route('/save', methods=['POST'])
 def save_json():
+    form = UploadForm()
     form_data = request.form
     data = json.dumps(form_data)
     with open('form_data.json', 'w') as outfile:
         json.dump(data, outfile)
     form_data = form_data.to_dict()
-    return render_template('config.html', form_data=form_data, show_alert=True, active_page='config_page')
+    return render_template('config.html', form=form, form_data=form_data, show_alert=True, active_page='config_page')
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -114,3 +117,16 @@ def calculate():
         Storage_Space_Requirement = str(round(Storage_Space_Requirement, 2)) + " MB"
 
     return render_template('settings.html', form_data=form_data, width=Footprint_Width, height=Footprint_Height, disBetCap=Distance_Between_Capture, disBetTrack=Distance_Between_Track, tBetCap=Time_Between_Capture, flightTime=Flight_Time, numCap=Number_of_Captures, numImg=Number_of_Images, areaPerHour=Area_per_Hour, ssr=Storage_Space_Requirement, active_page='settings_page')
+
+@app.route('/download')
+def download():
+    #download_path = '/mnt/d/CUSP/Web_App/static/icons' testing download_path
+    download_path = '/home/sixth/images/'
+    
+    zip_filename = 'images.zip'
+    with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zip:
+        for filename in os.listdir(download_path):
+            filepath = os.path.join(download_path, filename)
+            if os.path.isfile(filepath):
+                zip.write(filepath, filename)
+    return send_file(zip_filename, as_attachment=True)

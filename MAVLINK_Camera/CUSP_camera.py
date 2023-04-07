@@ -10,6 +10,7 @@ from CUSP_gps import *
 from picamera2 import Picamera2
 from PIL import Image
 import numpy as np
+import math
 
 
 def device_exists(path):
@@ -86,8 +87,14 @@ def write_metadata(filename):
             [filename],
             tags={
                 "GPSLatitude": latitude,
+                "GPSLatitudeRef": "N" if latitude <= 0 else "S",
                 "GPSLongitude": longitude,
+                "GPSLongitudeRef": "E" if longitude <= 0 else "W",
                 "GPSAltitude": altitude,
+                "GPSImgDirection": GPS_dev.yaw * (180/math.pi),
+                "GPSImgDirection": "T",
+                "GPSTimeStamp": GPS_dev.time_usec,
+                "GPSSatellites": GPS_dev.satellites_visible,
             },
             params=["-P", "-overwrite_original"],
         )

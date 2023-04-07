@@ -54,7 +54,7 @@ class GPSClass:
     cog: int = None
     satellites_visible: int = None  # Number of satellites visible
     # After this line is part of MAVLink 2 extension fields
-    # alt_ellipsoid, h_acc, v_acc, vel_acc units are in mm
+    # alt_ellipsoid, h_acc, v_acc, vel_acc units are in mm and mm/s
     # Altitude (above WGS84, EGM96 ellipsoid) Positive for up
     alt_ellipsoid: int = None
     h_acc: int = None  # Position uncertainty

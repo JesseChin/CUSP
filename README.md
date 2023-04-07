@@ -90,7 +90,7 @@ sudo systemctl start cusp-web.service
 After that, installing Flask is simple:
 
 ```
-pip install Flask
+pip install Flask flask-wtf flask-reuploaded
 ```
 
 Now make sure the system is wired as shown in the [System Diagram](#System-Diagram), and you should be able to run our test scripts.

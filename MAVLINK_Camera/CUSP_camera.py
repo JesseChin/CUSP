@@ -22,9 +22,7 @@ def device_exists(path):
 
 
 picam2 = Picamera2()
-camera_config = picam2.create_still_configuration(
-    main={"size": (imx477["SensorWidth"], imx477["SensorHeight"])}
-)
+camera_config = picam2.create_still_configuration()
 picam2.configure(camera_config)
 picam2.start()
 
@@ -102,7 +100,7 @@ def write_metadata(filename: str, camera_type: dict):
                 "GPSLongitudeRef": "E" if longitude <= 0 else "W",
                 "GPSAltitude": altitude,
                 "GPSImgDirection": GPS_dev.yaw * (180 / math.pi),
-                "GPSImgDirection": "T",
+                "GPSImgDirectionRef": "T",
                 "GPSTimeStamp": GPS_dev.time_usec,
                 "GPSSatellites": GPS_dev.satellites_visible,
                 "FocalLength": camera_type["FocalLength"],

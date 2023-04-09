@@ -19,6 +19,9 @@ Main program to run CUSP
 Handles all MAVLink communication here
 """
 
+LEPTON_HFOV = 45.6
+LEPTON_VFOV = 34.2
+
 
 def poll_GPS(periodSeconds, GPS, the_connection):
     # Handle polling GPS data here
@@ -96,6 +99,8 @@ def main():
         print("Waiting for GPS uplink")
         sleep(1)
 
+    lat_start, long_start, alt_start = GPS_dev.get_GPS_data()
+
     tick = 0
     while True:
         if tick % 10 == 0:
@@ -107,20 +112,22 @@ def main():
             if oldData["acmode"] != configData["acmode"]:
                 # update trigger mode
                 if configData["acmode"] == "Periodic":
-                    trigger = Trigger_Timer()  # TODO add mutex to the startTrigger loop
+                    trigger = Trigger_Timer()
                     trigger.set_period(15)
-                # elif (configData['acmode'] == "Overlap"):
-                #     trigger = Trigger_Overlap()
+                elif (configData['acmode'] == "Overlap"):
+                    trigger = Trigger_Overlap()
+                    trigger.set_fov(LEPTON_VFOV)
+                    trigger.set_stating_altitude(alt_start)
+                    trigger.set_overlap_percent(configData['along-track_overlap'])
                 # elif (configData['acmode'] == "PWM"):
                 #     trigger = Trigger_PWM()
+            altitude_target = configData["target_altitude"]
+            altitude_tolerance = configData["target_altitude_tolerance"]
 
         latitude, longitude, altitude = GPS_dev.get_GPS_data()
 
-        if float(configData["target_altitude"]) > altitude - float(
-            configData["target_altitude_tolerance"]
-        ) and float(configData["target_altitude"]) < altitude + float(
-            configData["target_altitude_tolerance"]
-        ):
+        if float(altitude_target) > altitude - float(altitude_tolerance
+        ) and float(altitude_target) < altitude + float(altitude_tolerance):
             trigger.activate_trigger()
             print(f"Altitude within tolerance: {altitude}")
         else:

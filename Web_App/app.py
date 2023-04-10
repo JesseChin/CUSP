@@ -18,7 +18,7 @@ app.secret_key = '0123456789'
 
 photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/models'
-photos.extensions = ('pdf', 'pptx',)
+photos.extensions = ('tflite')
 configure_uploads(app, photos)
 
 class UploadForm(FlaskForm):

@@ -28,6 +28,9 @@ picam2.start()
 
 
 def capture_rgb():
+    """
+    Capture RGB image, return error status if error, else return path
+    """
     # Check for presence of camera
     # check ls /dev/video1
     """
@@ -40,16 +43,22 @@ def capture_rgb():
     filename = dt.strftime("%Y-%m-%d_%H-%M-%S") + "_RGB.jpg"
     # Capture image
     OUTPUT_PATH = "/home/sixth/images/"
-    metadata = picam2.capture_file(OUTPUT_PATH + filename)
+
+    metadata = picam2.switch_mode_and_capture_file(
+        camera_config, OUTPUT_PATH + filename
+    )
     print(metadata, imx477)
 
     if write_metadata(OUTPUT_PATH + filename, imx477) == Error.NO_ERROR:
-        return Error.NO_ERROR
+        return OUTPUT_PATH + filename
 
     return Error.CAPTURE_ERROR
 
 
 def capture_thermal():
+    """
+    Capture thermal image, return error status if error, else return path
+    """
     # Check for presence of camera
     # check ls /dev/video0, if nothing return an error
     """
@@ -70,17 +79,20 @@ def capture_thermal():
     cmd = LEPTON_DATA_COLLECTOR_PATH + " -3 -c 1 -o" + OUTPUT_PATH + filename
 
     os.system(cmd)
-    cmd = "sudo chown sixth:sixth " + OUTPUT_PATH + filename + "000000.gray"
-    os.system(cmd)
 
-    # TODO convert to be usable by user
-    # TODO use tmpfs
-    convert_raw(
-        OUTPUT_PATH + filename + "000000.gray",
-        OUTPUT_PATH + filename,
-        "TIFF",
-        (160, 120),
-    )
+    try:
+        cmd = "sudo chown sixth:sixth " + OUTPUT_PATH + filename + "000000.gray"
+        os.system(cmd)
+        # TODO convert to be usable by user
+        # TODO use tmpfs
+        convert_raw(
+            OUTPUT_PATH + filename + "000000.gray",
+            OUTPUT_PATH + filename,
+            "TIFF",
+            (120, 160),
+        )
+    except:
+        return Error.CAMERA_MISSING
     if write_metadata(OUTPUT_PATH + filename, flir_lepton_3_5) == Error.NO_ERROR:
         return Error.NO_ERROR
 
@@ -89,7 +101,7 @@ def capture_thermal():
 
 
 def write_metadata(filename: str, camera_type: dict):
-    latitude, longitude, altitude = GPS_dev.get_GPS_data()
+    latitude, longitude, _ = GPS_dev.get_GPS_data()
     with ExifToolHelper() as et:
         et.set_tags(
             [filename],
@@ -98,11 +110,15 @@ def write_metadata(filename: str, camera_type: dict):
                 "GPSLatitudeRef": "N" if latitude <= 0 else "S",
                 "GPSLongitude": longitude,
                 "GPSLongitudeRef": "E" if longitude <= 0 else "W",
-                "GPSAltitude": altitude,
+                "GPSAltitude": GPS_dev.Altitude * 1e-3,
+                "GPSAltitudeRef": 0 if GPS_dev.Altitude >= 0 else -1,
+                "GPSSpeed": GPS_dev.vel * 0.036,
+                "GPSSpeedRef": "K",
                 "GPSImgDirection": GPS_dev.yaw * (180 / math.pi),
                 "GPSImgDirectionRef": "T",
                 "GPSTimeStamp": GPS_dev.time_usec,
                 "GPSSatellites": GPS_dev.satellites_visible,
+                "GPSProcessingMethod": "GPS",
                 "FocalLength": camera_type["FocalLength"],
                 "FocalPlaneXResolution": camera_type["SensorWidth"],
                 "FocalPlaneYResolution": camera_type["SensorHeight"],

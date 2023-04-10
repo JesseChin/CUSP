@@ -1,8 +1,9 @@
-from flask import Flask, render_template, send_file, request
+from flask import Flask, render_template, send_file, request, make_response
 from flask_wtf import FlaskForm
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_wtf.file import FileField, FileRequired
 from datetime import datetime
+from threading import Timer
 import os
 import zipfile
 import json
@@ -18,11 +19,12 @@ app.secret_key = '0123456789'
 
 photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/models'
-photos.extensions = ('tflite')
+photos.extensions = ('tflite', 'cfg', 'weights')
 configure_uploads(app, photos)
 
 class UploadForm(FlaskForm):
-    photo = FileField('ML Model:', validators=[FileRequired()])
+    file1 = FileField('ML Model:', validators=[FileRequired()])
+    file2 = FileField('Weights:', validators=[FileRequired()])
 
 @app.route('/')
 @app.route('/home')
@@ -37,10 +39,18 @@ def home_page():
         speed = live_status.other()
         heading = live_status.other()
         config = live_status.other()
-        return render_template('home.html', active_page='home_page', storage=storage, sats=sats, connected=isConnected, time=time, location=location, altitude=altitude, speed=speed, heading=heading, config=config)
+        response = make_response(render_template('home.html', active_page='home_page', storage=storage, sats=sats, connected=isConnected, time=time, location=location, altitude=altitude, speed=speed, heading=heading, config=config))
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
     else:
-        return render_template('home.html', active_page='home_page', storage="", sats="", connected=isConnected, time="", location="", altitude="", speed="", heading="", config="")
-
+        response = make_response(render_template('home.html', active_page='home_page', storage="", sats="", connected=isConnected, time="", location="", altitude="", speed="", heading="", config=""))
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
+    
 @app.route('/settings')
 def settings_page():
     form_data = {}
@@ -71,7 +81,8 @@ def upload():
     form = UploadForm()
     form_data = {}
     if request.method == 'POST' and form.validate():
-        filename = photos.save(request.files['photo'])
+        photos.save(request.files['file1'])
+        photos.save(request.files['file2'])
         return render_template('config.html', form=form, model_uploaded=True, form_data=form_data, active_page='config_page')
     return render_template('config.html', form=form, form_data=form_data, active_page='config_page')
 

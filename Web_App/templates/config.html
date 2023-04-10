@@ -149,8 +149,10 @@
     </form>
     <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
         {{ form.csrf_token }}
-        {{ form.photo.label }}
-        {{ form.photo }}
+        {{ form.file1.label }}
+        {{ form.file1 }}
+        {{ form.csrf_token }}
+        {{ form.file2 }}
         <button type="submit">Upload</button>
     </form>
 

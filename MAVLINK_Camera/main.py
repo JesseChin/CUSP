@@ -93,18 +93,6 @@ def main():
     GPSprocess = Thread(target=poll_GPS, args=(0.1, GPS_dev, master,),)
     GPSprocess.start()
 
-    configJSON = open("../Web_App/form_data.json")
-    configData = json.load(configJSON)
-    configData = json.loads(configData)
-    oldData = configData
-
-    trigger = Trigger_Timer(msg_buffer)
-    trigger.deactivate_trigger()
-    triggerProcess = Thread(target=startTrigger, args=(trigger,))
-    triggerProcess.start()
-
-    trigger.set_period(15)
-
     ModelSenderProcess = Thread(target=process_path_buffer, args=(msg_buffer, master,))
     ModelSenderProcess.start()
 
@@ -116,28 +104,32 @@ def main():
 
     lat_start, long_start, alt_start = GPS_dev.get_GPS_data()
 
+    configJSON = open("../Web_App/form_data.json")
+    configData = json.load(configJSON)
+    configData = json.loads(configData)
+    print("JSON loaded")
+    # update trigger mode
+    if configData["acmode"] == "Periodic":
+        trigger = Trigger_Timer(msg_buffer, 15)
+        trigger.deactivate_trigger()
+        triggerProcess = Thread(target=startTrigger, args=(trigger,))
+        triggerProcess.start()
+    elif configData["acmode"] == "Overlap":
+        trigger = Trigger_Overlap(msg_buffer)
+        trigger.set_GPS(GPS_dev)
+        trigger.set_fov(LEPTON_VFOV)
+        trigger.set_stating_altitude(alt_start)
+        trigger.set_overlap_percent(int(configData["along-track_overlap"]))
+        trigger.deactivate_trigger()
+        triggerProcess = Thread(target=startTrigger, args=(trigger,))
+        triggerProcess.start()
+    # elif (configData['acmode'] == "PWM"):
+    #     trigger = Trigger_PWM()
+    altitude_target = configData["target_altitude"]
+    altitude_tolerance = configData["target_altitude_tolerance"]
+
     tick = 0
     while True:
-        if tick % 10 == 0:
-            print("JSON verified")
-            configJSON = open("../Web_App/form_data.json")
-            oldData = configData
-            configData = json.load(configJSON)
-            configData = json.loads(configData)
-            if oldData["acmode"] != configData["acmode"]:
-                # update trigger mode
-                if configData["acmode"] == "Periodic":
-                    trigger = Trigger_Timer()
-                    trigger.set_period(15)
-                elif configData["acmode"] == "Overlap":
-                    trigger = Trigger_Overlap()
-                    trigger.set_fov(LEPTON_VFOV)
-                    trigger.set_stating_altitude(alt_start)
-                    trigger.set_overlap_percent(configData["along-track_overlap"])
-                # elif (configData['acmode'] == "PWM"):
-                #     trigger = Trigger_PWM()
-            altitude_target = configData["target_altitude"]
-            altitude_tolerance = configData["target_altitude_tolerance"]
 
         latitude, longitude, altitude = GPS_dev.get_GPS_data()
 

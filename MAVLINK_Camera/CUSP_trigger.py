@@ -6,7 +6,7 @@ MAVLink Camera Protocol not supported yet
 """
 
 from CUSP_camera import *
-from math import sin, cos, tan, asin, acos, atan
+from math import sin, cos, tan, asin, acos, atan, pi, atan2, sqrt
 
 # import RPi.GPIO as GPIO
 # Use apigpio instead as it has asyncio support
@@ -24,7 +24,7 @@ class Trigger_Timer:
     When activated, turn on trigger on each period
     """
 
-    def __init__(self, msg_buffer, period=5):
+    def __init__(self, msg_buffer, period=15):
         self.periodSeconds = period
         self.active = False
         self.triggerMutex = Lock()
@@ -111,6 +111,13 @@ class Trigger_Overlap:
     alt_start = 0
     overlap_percent = 25
 
+    lat_prev, long_prev, alt_prev = 0, 0, 0
+
+    def __init__(self, msg_buffer):
+        self.active = False
+        self.triggerMutex = Lock()
+        self.msg_buffer = msg_buffer
+
     def set_GPS(self, gpsObject):
         self.gpsObject = gpsObject
 
@@ -125,29 +132,39 @@ class Trigger_Overlap:
 
     def trigger_loop(self):
 
-        lat_prev, long_prev, alt_prev = 0, 0, 0
-
         with self.triggerMutex:
             if self.active:
 
                 lat_now, long_now, alt_now = self.gpsObject.get_GPS_data()
 
-                distance_m = (
-                    acos(
-                        sin(lat_prev) * sin(long_prev)
-                        + cos(lat_prev) * cos(long_prev) * cos(long_now - long_prev)
-                    )
-                    * 6371
-                    * 1000
-                )
+                R = 6371
+                lat_prev_r = self.lat_prev * pi/180
+                lat_now_r = lat_now * pi/180
+                dLat = (lat_now-self.lat_prev) * pi/180
+                dLong = (long_now-self.long_prev) * pi/180
+
+                a = sin(dLat/2) * sin(dLat/2) + cos(lat_prev_r) * cos(lat_now_r) * sin(dLong/2) * sin(dLong/2)
+                distance_m = R * 2 * atan2(sqrt(a), sqrt(1-a))
+
+                print(f"Distance traveled: {distance_m}m")
 
                 if distance_m > ((100 - self.overlap_percent) / 100.0) * 2 * (
                     alt_now - self.alt_start
                 ) * tan(self.fov / 2):
-                    lat_prev, long_prev, alt_prev = lat_now, long_now, alt_now
-                    capture_rgb()
-                    capture_thermal()
-        sleep(0.2)
+                    self.lat_prev, self.long_prev, self.alt_prev = lat_now, long_now, alt_now
+                    dt = datetime.now()
+                    filepath = "/home/sixth/images/" + dt.strftime("%Y-%m-%d_%H-%M-%S")
+                    print("Capturing RGB")
+                    retcode = capture_rgb_path(filepath + "_RGB.jpg")
+                    if retcode == Error.NO_ERROR:
+                        self.msg_buffer.put(filepath + "_RGB.jpg")
+                    print("Capturing IR")
+                    retcode = capture_thermal_path(filepath + "_IR")
+                    if retcode == Error.NO_ERROR:
+                        print("Adding IR path to buffer")
+                        self.msg_buffer.put(filepath + "_IR.tiff")
+                else:
+                    sleep(0.2)
 
     def activate_trigger(self):
         with self.triggerMutex:

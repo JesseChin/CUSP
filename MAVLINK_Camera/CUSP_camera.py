@@ -12,6 +12,7 @@ from picamera2 import Picamera2
 from PIL import Image
 import numpy as np
 import math
+import subprocess
 
 
 def device_exists(path):
@@ -25,11 +26,12 @@ picam2 = Picamera2()
 camera_config = picam2.create_still_configuration()
 picam2.configure(camera_config)
 picam2.start()
+# picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous})
 
 
 def capture_rgb():
     """
-    Capture RGB image, return error status if error, else return path
+    Capture RGB image, return error status
     """
     # Check for presence of camera
     # check ls /dev/video1
@@ -50,7 +52,7 @@ def capture_rgb():
     print(metadata, imx477)
 
     if write_metadata(OUTPUT_PATH + filename, imx477) == Error.NO_ERROR:
-        return OUTPUT_PATH + filename
+        return Error.NO_ERROR
 
     return Error.CAPTURE_ERROR
 
@@ -100,6 +102,48 @@ def capture_thermal():
     return Error.NO_ERROR
 
 
+def capture_rgb_path(filepath: str):
+    """
+    Capture RGB image given path
+    """
+    camera_metadata = picam2.switch_mode_and_capture_file(camera_config, filepath)
+    print(camera_metadata)
+
+    if write_metadata(filepath, imx477) == Error.NO_ERROR:
+        return Error.NO_ERROR
+
+    return Error.CAPTURE_ERROR
+
+
+def capture_thermal_path(filepath: str):
+    """
+    Capture thermal image given path
+    """
+    """LEPTON_DATA_COLLECTOR_PATH = (
+        "sudo $HOME/CUSP/external/lepton_data_collector/lepton_data_collector"
+    )
+    OUTPUT_PATH = "/home/sixth/images/"
+    """
+    cmd = "lepton_data_collector -3 -c 1 -o " + filepath
+
+    retcode = subprocess.call(cmd, shell=True)
+    if os.path.exists(filepath + "000000.gray") == True:
+        cmd = "sudo chown sixth:sixth " + filepath + "000000.gray"
+        retcode = subprocess.call(cmd, shell=True)
+        # TODO convert to be usable by user
+        # TODO use tmpfs
+        convert_raw(filepath + "000000.gray", filepath + ".tiff", "TIFF", (120, 160))
+    else:
+        return Error.CAMERA_MISSING
+    try:
+        if write_metadata(filepath + ".tiff", flir_lepton_3_5) == Error.NO_ERROR:
+            return Error.NO_ERROR
+    except:
+
+        # return Error.CAPTURE_ERROR
+        return Error.NO_ERROR
+
+
 def write_metadata(filename: str, camera_type: dict):
     latitude, longitude, _ = GPS_dev.get_GPS_data()
     with ExifToolHelper() as et:
@@ -107,9 +151,9 @@ def write_metadata(filename: str, camera_type: dict):
             [filename],
             tags={
                 "GPSLatitude": latitude,
-                "GPSLatitudeRef": "N" if latitude <= 0 else "S",
+                "GPSLatitudeRef": "N" if latitude >= 0 else "S",
                 "GPSLongitude": longitude,
-                "GPSLongitudeRef": "E" if longitude <= 0 else "W",
+                "GPSLongitudeRef": "E" if longitude >= 0 else "W",
                 "GPSAltitude": GPS_dev.Altitude * 1e-3,
                 "GPSAltitudeRef": 0 if GPS_dev.Altitude >= 0 else -1,
                 "GPSSpeed": GPS_dev.vel * 0.036,
@@ -129,7 +173,7 @@ def write_metadata(filename: str, camera_type: dict):
     return Error.NO_ERROR
 
 
-# TODO for myself; Set up tmpfs for capturing Lepton RAWs
+# TODO Set up tmpfs for capturing Lepton RAWs
 def convert_raw(input_path: str, output_path: str, filetype: str, image_size: tuple):
     with open(input_path, "rb") as f:
         raw_data = np.fromfile(f, dtype=">u2")

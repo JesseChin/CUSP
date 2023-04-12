@@ -14,15 +14,21 @@ from time import sleep
 from threading import Thread, Lock
 from datetime import datetime
 
+from multiprocessing import Process
+
+import queue
+
 
 class Trigger_Timer:
     """
-    When activated,
+    When activated, turn on trigger on each period
     """
 
-    periodSeconds = 5
-    active = False
-    triggerMutex = Lock()
+    def __init__(self, msg_buffer, period=5):
+        self.periodSeconds = period
+        self.active = False
+        self.triggerMutex = Lock()
+        self.msg_buffer = msg_buffer
 
     def set_period(self, seconds):
         self.periodSeconds = seconds
@@ -34,8 +40,18 @@ class Trigger_Timer:
         with self.triggerMutex:
             if self.active:
                 startTime = time.time()
-                capture_rgb()
-                capture_thermal()
+
+                dt = datetime.now()
+                filepath = "/home/sixth/images/" + dt.strftime("%Y-%m-%d_%H-%M-%S")
+                print("Capturing RGB")
+                retcode = capture_rgb_path(filepath + "_RGB.jpg")
+                if retcode == Error.NO_ERROR:
+                    self.msg_buffer.put(filepath + "_RGB.jpg")
+                print("Capturing IR")
+                retcode = capture_thermal_path(filepath + "_IR")
+                if retcode == Error.NO_ERROR:
+                    print("Adding IR path to buffer")
+                    self.msg_buffer.put(filepath + "_IR.tiff")
 
                 now = time.time()
                 waitTime = self.periodSeconds - (now - startTime)
@@ -89,9 +105,9 @@ class Trigger_Overlap:
 
     active = False
     triggerMutex = Lock()
-    
+
     gpsObject = None
-    fov = 34.2 # vertical lepton FOV
+    fov = 34.2  # vertical lepton FOV
     alt_start = 0
     overlap_percent = 25
 
@@ -108,17 +124,26 @@ class Trigger_Overlap:
         self.overlap_percent = overlap_percent
 
     def trigger_loop(self):
-                
-        lat_prev, long_prev, alt_prev = 0,0,0
+
+        lat_prev, long_prev, alt_prev = 0, 0, 0
 
         with self.triggerMutex:
             if self.active:
-                
+
                 lat_now, long_now, alt_now = self.gpsObject.get_GPS_data()
 
-                distance_m = acos(sin(lat_prev)*sin(long_prev)+cos(lat_prev)*cos(long_prev)*cos(long_now-long_prev))*6371*1000
+                distance_m = (
+                    acos(
+                        sin(lat_prev) * sin(long_prev)
+                        + cos(lat_prev) * cos(long_prev) * cos(long_now - long_prev)
+                    )
+                    * 6371
+                    * 1000
+                )
 
-                if distance_m > ((100-self.overlap_percent)/100.0)*2*(alt_now-self.alt_start)*tan(self.fov/2):
+                if distance_m > ((100 - self.overlap_percent) / 100.0) * 2 * (
+                    alt_now - self.alt_start
+                ) * tan(self.fov / 2):
                     lat_prev, long_prev, alt_prev = lat_now, long_now, alt_now
                     capture_rgb()
                     capture_thermal()

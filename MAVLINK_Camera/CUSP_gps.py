@@ -69,7 +69,7 @@ class GPSClass:
     # All units are in rad or rad/s
     roll: float = None
     pitch: float = None
-    yawspeed: float = None
+    yaw: float = None
     pitchspeed: float = None
     yawspeed: float = None
 

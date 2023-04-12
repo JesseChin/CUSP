@@ -146,11 +146,11 @@ class Trigger_Overlap:
                 a = sin(dLat/2) * sin(dLat/2) + cos(lat_prev_r) * cos(lat_now_r) * sin(dLong/2) * sin(dLong/2)
                 distance_m = 1000 * R * 2 * atan2(sqrt(a), sqrt(1-a))
 
-                print(f"Distance traveled: {distance_m}m")
+                distance_target_m = ((100 - self.overlap_percent) / 100.0) * 2 * (alt_now - self.alt_start) * tan(self.fov / 2)
 
-                if distance_m > ((100 - self.overlap_percent) / 100.0) * 2 * (
-                    alt_now - self.alt_start
-                ) * tan(self.fov / 2):
+                print(f"Distance traveled: {distance_m}m\nDistance target: {distance_target_m}m")
+
+                if distance_m > distance_target_m:
                     self.lat_prev, self.long_prev, self.alt_prev = lat_now, long_now, alt_now
                     dt = datetime.now()
                     filepath = "/home/sixth/images/" + dt.strftime("%Y-%m-%d_%H-%M-%S")
@@ -164,6 +164,7 @@ class Trigger_Overlap:
                         print("Adding IR path to buffer")
                         self.msg_buffer.put(filepath + "_IR.tiff")
                 else:
+                    print("No Capture")
                     sleep(0.2)
 
     def activate_trigger(self):

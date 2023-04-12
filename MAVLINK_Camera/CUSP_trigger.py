@@ -107,7 +107,7 @@ class Trigger_Overlap:
     triggerMutex = Lock()
 
     gpsObject = None
-    fov = 34.2  # vertical lepton FOV
+    fov = 42.6  # vertical lepton FOV
     alt_start = 0
     overlap_percent = 25
 

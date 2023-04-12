@@ -6,7 +6,7 @@ imx477 = {
     "SensorWidth": 4712,
     "SensorHeight": 6286.8,
     "XResolution": 4056,
-    "YResolution:": 3040,
+    "YResolution": 3040,
 }
 
 flir_lepton_3_5 = {
@@ -15,5 +15,5 @@ flir_lepton_3_5 = {
     "SensorWidth": 1920,
     "SensorHeight": 1440,
     "XResolution": 160,
-    "YResolution:": 120,
+    "YResolution": 120,
 }

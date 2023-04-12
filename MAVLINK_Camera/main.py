@@ -7,7 +7,9 @@ import sys
 from CUSP_camera import *
 from CUSP_trigger import *
 from CUSP_gps import *
+from camera_definitions import *
 import json
+import math
 import random
 
 # from multiprocessing import Process
@@ -27,8 +29,8 @@ Main program to run CUSP
 Handles all MAVLink communication here
 """
 
-LEPTON_HFOV = 45.6
-LEPTON_VFOV = 34.2
+LEPTON_HFOV = float(flir_lepton_3_5["DiagFOV"])*float(flir_lepton_3_5["XResolution"])/math.sqrt(float(flir_lepton_3_5["XResolution"])**2 + float(flir_lepton_3_5["YResolution"])**2)
+LEPTON_VFOV = float(flir_lepton_3_5["DiagFOV"])*float(flir_lepton_3_5["YResolution"])/math.sqrt(float(flir_lepton_3_5["XResolution"])**2 + float(flir_lepton_3_5["YResolution"])**2)
 
 msg_buffer = queue.Queue()
 

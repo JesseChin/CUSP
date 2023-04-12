@@ -18,6 +18,8 @@ import queue
 import grpc
 import os, sys
 
+import pickle
+
 sys.path.append(
     os.path.join(os.path.dirname(__file__), "../rt-flight/raspberry_pi_code/protos")
 )
@@ -52,6 +54,8 @@ def poll_GPS(periodSeconds, GPS, the_connection):
         GPS.set_GPS_rel_height(msg)
 
         # might have to bump up frequency depending on how fast it's flying
+        with open("gps.pkl", "wb") as f:
+            pickle.dump(GPS, f)
         sleep(periodSeconds)
 
 

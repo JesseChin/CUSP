@@ -144,7 +144,7 @@ class Trigger_Overlap:
                 dLong = (long_now-self.long_prev) * pi/180
 
                 a = sin(dLat/2) * sin(dLat/2) + cos(lat_prev_r) * cos(lat_now_r) * sin(dLong/2) * sin(dLong/2)
-                distance_m = R * 2 * atan2(sqrt(a), sqrt(1-a))
+                distance_m = 1000 * R * 2 * atan2(sqrt(a), sqrt(1-a))
 
                 print(f"Distance traveled: {distance_m}m")
 

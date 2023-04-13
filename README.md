@@ -1,7 +1,7 @@
 # CUSP
 
 [github link](https://github.com/JesseChin/CUSP)
-[User Guide] (https://github.com/JesseChin/CUSP/blob/main/docs/User%20Guide.docx)
+[User Guide](https://github.com/JesseChin/CUSP/blob/main/docs/User%20Guide.docx)
 
 ## Project Description
 

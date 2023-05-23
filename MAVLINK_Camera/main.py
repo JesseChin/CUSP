@@ -15,16 +15,10 @@ import random
 # from multiprocessing import Process
 from threading import Thread, Lock
 import queue
-import grpc
 import os, sys
 
 import pickle
-
-sys.path.append(
-    os.path.join(os.path.dirname(__file__), "../rt-flight/raspberry_pi_code/protos")
-)
-import messaging_pb2
-import messaging_pb2_grpc
+import zmq
 
 """
 Main program to run CUSP
@@ -60,15 +54,21 @@ def poll_GPS(periodSeconds, GPS, the_connection):
 
 
 def process_path_buffer(msg_buffer, the_connection):
-    channel = grpc.insecure_channel("localhost:50951")
-    stub = messaging_pb2_grpc.MessagingServiceStub(channel)
+#     channel = grpc.insecure_channel("localhost:50951")
+#     stub = messaging_pb2_grpc.MessagingServiceStub(channel)
+    context = zmq.Context()
+    print("Connecting to model network server")
+    socket = context.socket(zmq.REQ)
+    socket.connect("tcp://localhost:5555")
     while True:
         item = msg_buffer.get(block=True)
         # Write item to GRPC so that the model can see
         # Print path sending as a test
         print("Sending path: ", item)
-        response = stub.GetBoundingBoxes(messaging_pb2.File_Payload(path=item))
-        print("Sending to GCS: ", response.bboxes)
+        # response = stub.GetBoundingBoxes(messaging_pb2.File_Payload(path=item))
+        socket.send_string(item)
+        response = socket.recv()
+        print("Sending to GCS: ", response)
         # print(response.status)
         the_connection.mav.statustext_send(
             mavutil.mavlink.MAV_SEVERITY_NOTICE, str(response.bboxes).encode()

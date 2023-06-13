@@ -5,18 +5,25 @@ Currently working on: PWM and Overlap
 MAVLink Camera Protocol not supported yet
 """
 
-from CUSP_camera import *
+from CUSP_camera import RGBCamera, ThermalCamera
+from CUSP_error_types import *
+import CUSP_camera
 from math import sin, cos, tan, asin, acos, atan, pi, atan2, sqrt
 
 # import RPi.GPIO as GPIO
 # Use apigpio instead as it has asyncio support
-from time import sleep
+import time
+# from time import sleep
 from threading import Thread, Lock
 from datetime import datetime
 
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 
-import queue
+class GenericCapture:
+    def __init__(self, GPS):
+        self.RGBCam = RGBCamera()
+        self.IRCam = ThermalCamera()
+        self.GPS = GPS
 
 
 class Trigger_Timer:
@@ -24,17 +31,26 @@ class Trigger_Timer:
     When activated, turn on trigger on each period
     """
 
-    def __init__(self, msg_buffer, period=15):
+    def __init__(self, msg_buffer, GPS, period=15):
         self.periodSeconds = period
         self.active = False
         self.triggerMutex = Lock()
         self.msg_buffer = msg_buffer
+        self.RGBCam = RGBCamera()
+        self.IRCam = ThermalCamera()
+        self.GPS = GPS
 
     def set_period(self, seconds):
         self.periodSeconds = seconds
 
     def set_frequency(self, Hz):
         self.periodSeconds = 1 / Hz
+        
+    def capture_RGB(self):
+        pass
+        
+    def capture_IR(self):
+        pass
 
     def trigger_loop(self):
         with self.triggerMutex:
@@ -44,11 +60,11 @@ class Trigger_Timer:
                 dt = datetime.now()
                 filepath = "/home/sixth/images/" + dt.strftime("%Y-%m-%d_%H-%M-%S")
                 print("Capturing RGB")
-                retcode = capture_rgb_path(filepath + "_RGB.jpg")
+                retcode = self.RGBCam.capture(filepath + "_RGB.jpg", self.GPS)
                 if retcode == Error.NO_ERROR:
                     self.msg_buffer.put(filepath + "_RGB.jpg")
                 print("Capturing IR")
-                retcode = capture_thermal_path(filepath + "_IR")
+                retcode = self.IRCam.capture(filepath + "_IR.tiff", self.GPS)
                 if retcode == Error.NO_ERROR:
                     print("Adding IR path to buffer")
                     self.msg_buffer.put(filepath + "_IR.tiff")
@@ -60,8 +76,8 @@ class Trigger_Timer:
                 )
                 if waitTime < 0.1:
                     waitTime = 0.1
-                sleep(waitTime - 0.1)
-        sleep(0.1)
+                time.sleep(waitTime - 0.1)
+        time.sleep(0.1)
 
     def activate_trigger(self):
         with self.triggerMutex:
@@ -165,7 +181,7 @@ class Trigger_Overlap:
                         self.msg_buffer.put(filepath + "_IR.tiff")
                 else:
                     print("No Capture")
-                    sleep(0.2)
+                    time.sleep(0.2)
 
     def activate_trigger(self):
         with self.triggerMutex:

@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-from typing_extensions import get_args
+# from typing_extensions import get_args
 from pymavlink import mavutil
 import time
-import sys
 from CUSP_camera import *
 from CUSP_trigger import *
 from CUSP_gps import *
@@ -13,6 +12,7 @@ import math
 import random
 
 # from multiprocessing import Process
+from multiprocessing import Queue
 from threading import Thread, Lock
 import queue
 import os, sys
@@ -28,7 +28,8 @@ Handles all MAVLink communication here
 LEPTON_HFOV = float(flir_lepton_3_5["DiagFOV"])*float(flir_lepton_3_5["XResolution"])/math.sqrt(float(flir_lepton_3_5["XResolution"])**2 + float(flir_lepton_3_5["YResolution"])**2)
 LEPTON_VFOV = float(flir_lepton_3_5["DiagFOV"])*float(flir_lepton_3_5["YResolution"])/math.sqrt(float(flir_lepton_3_5["XResolution"])**2 + float(flir_lepton_3_5["YResolution"])**2)
 
-msg_buffer = queue.Queue()
+# msg_buffer = queue.Queue()
+msg_buffer = Queue()
 
 
 def poll_GPS(periodSeconds, GPS, the_connection):
@@ -62,10 +63,8 @@ def process_path_buffer(msg_buffer, the_connection):
     socket.connect("tcp://localhost:5555")
     while True:
         item = msg_buffer.get(block=True)
-        # Write item to GRPC so that the model can see
         # Print path sending as a test
         print("Sending path: ", item)
-        # response = stub.GetBoundingBoxes(messaging_pb2.File_Payload(path=item))
         socket.send_string(item)
         response = socket.recv()
         print("Sending to GCS: ", response)
@@ -95,6 +94,8 @@ def main():
         "Heartbeat from system (system %u component %u)"
         % (master.target_system, master.target_component)
     )
+
+    GPS_dev = GPSClass()
 
     GPSprocess = Thread(target=poll_GPS, args=(0.1, GPS_dev, master,),)
     GPSprocess.start()

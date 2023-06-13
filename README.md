@@ -76,7 +76,7 @@ echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
 ```
 
 ```
-sudo apt install libimage-exiftool-perl libcamera
+sudo apt install libimage-exiftool-perl libcamera pyzmq
 pip install PyExifTool
 ```
 

@@ -12,7 +12,6 @@ from threading import Thread, Lock
 Module for returning GPS coords
 """
 
-
 class GPS_FIX_TYPE(Enum):
     GPS_FIX_TYPE_NO_GPS = 0
     GPS_FIX_TYPE_NO_FIX = 1
@@ -24,60 +23,69 @@ class GPS_FIX_TYPE(Enum):
     GPS_FIX_TYPE_STATIC = 7
     GPS_FIX_TYPE_PPP = 8
 
-
+@dataclass
 class GPSClass:
 
     GPSmutex = Lock()
 
-    """
-    Latitude: float = 0  # rational64u
-    LatitudeRef: str = "N"
-    Longitude: float = 0  # rational64u
-    LongitudeRef: str = "E"
-    Altitude: float = 0  # rational64u
-    Satellites: str = ""
-    """
-
-    time_usec: int = None  # Timestamp in UNIX Epoch
-    fix_type: int = None  # GPS fix type
+    time_usec: int  # Timestamp in UNIX Epoch
+    fix_type: int  # GPS fix type
     # Latitude and Longitude is in degE7. To convert, divide by 1.0e7
-    Latitude: int = None  # Latitude  (WGS84, EGM96 ellipsoid)
-    Longitude: int = None  # Longitude (WGS84, EGM96 ellipsoid)
+    Latitude: int  # Latitude  (WGS84, EGM96 ellipsoid)
+    Longitude: int  # Longitude (WGS84, EGM96 ellipsoid)
     # Altitude in mm
-    Altitude: int = None  # Altitude (Mean Sea Level)
-    eph: int = None  # GPS HDOP horizontal dilution of position (unitless*100)
-    epv: int = None  # GPS VDOP vertical dilution of position (unitless*100)
+    Altitude: int  # Altitude (Mean Sea Level)
+    eph: int  # GPS HDOP horizontal dilution of position (unitless*100)
+    epv: int  # GPS VDOP vertical dilution of position (unitless*100)
     # Velocity is in cm/s
-    vel: int = None  # GPS ground speed
+    vel: int  # GPS ground speed
     # Course over Ground in cdeg
     # Course over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99degrees
-    cog: int = None
-    satellites_visible: int = None  # Number of satellites visible
+    cog: int
+    satellites_visible: int  # Number of satellites visible
     # After this line is part of MAVLink 2 extension fields
     # alt_ellipsoid, h_acc, v_acc, vel_acc units are in mm and mm/s
     # Altitude (above WGS84, EGM96 ellipsoid) Positive for up
-    alt_ellipsoid: int = None
-    h_acc: int = None  # Position uncertainty
-    v_acc: int = None  # Altitude uncertainty
-    vel_acc: int = None  # Speed uncertainty
+    alt_ellipsoid: int
+    h_acc: int  # Position uncertainty
+    v_acc: int  # Altitude uncertainty
+    vel_acc: int  # Speed uncertainty
     # hdg_acc is in degE5
-    hdg_acc: int = None  # Heading / track uncertainty
+    hdg_acc: int  # Heading / track uncertainty
     # yaw in cdeg
     # Yaw in earth frame from north. Set to 0 if GPS does not provide yaw.
-    yaw_gps: int = None
+    yaw_gps: int
 
     # All units are in rad or rad/s
-    roll: float = None
-    pitch: float = None
-    yaw: float = None
-    pitchspeed: float = None
-    yawspeed: float = None
+    roll: float
+    pitch: float
+    yaw: float
+    pitchspeed: float
+    yawspeed: float
 
-    initial_latitude: int = None
-    initial_longitude: int = None
-    initial_altitude: int = None
+    initial_latitude: int
+    initial_longitude: int
+    initial_altitude: int
 
-    rel_altitude: float = None
+    rel_altitude: float
+    
+    def __init__(self):
+        self.time_usec = None
+        self.fix_type = None
+        self.Latitude = None
+        self.Longitude = None
+        self.Altitude = None
+        self.eph = None
+        self.epv = None
+        self.vel = None
+        self.cog = None
+        self.satellites_visible = None
+        self.alt_ellipsoid = None
+        self.h_acc = None
+        self.v_acc = None
+        self.vel_acc = None
+        self.hdg_acc = None
+        self.yaw_gps = None
 
     def set_mock_gps_data(self, latitude, longitude, altitude):
         with self.GPSmutex:
@@ -143,16 +151,7 @@ class GPSClass:
         self.pitchspeed = msg.pitchspeed
         self.yawspeed = msg.yawspeed
 
-    def set_GPS_initial_data(self, msg):
-        """
-        Sets the GPS data for the first time an uplink
-        is made. Used for AGL calculation.
-        """
-
     def set_GPS_rel_height(self, msg):
         """
         """
         self.rel_altitude = msg.relative_alt
-
-
-GPS_dev = GPSClass()  # TODO move this out of global context, bad practice

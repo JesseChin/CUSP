@@ -17,3 +17,14 @@ flir_lepton_3_5 = {
     "XResolution": 160,
     "YResolution": 120,
 }
+
+# From https://www.uctronics.com/arducam-64mp-autofocus-camera-module-raspberrypi.html
+hawkeye_64mp = {
+    "hFOV": 72,
+    "DiagFOV": 84,
+    "FocalLength": 5.1,
+    "SensorWidth": 7.4,
+    "SensorHeight": 5.55,
+    "XResolution": 9152,
+    "YResolution": 6944,
+}
